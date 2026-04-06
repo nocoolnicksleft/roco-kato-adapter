@@ -1,9 +1,9 @@
 {
     "parameterSets": {
-        "Roco Turnout 2417": {
+        "Roco Turnout L 2417": {
             "anschluss_gerade_laenge": "0",
             "drive_length": "88",
-            "drive_offset": "10",
+            "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
@@ -11,10 +11,10 @@
             "radius": "194.6",
             "winkel": "24"
         },
-        "Roco Turnout 2417 w/ Roco 2413 33.6mm straight": {
+        "Roco Turnout L 2417 w/ Roco 2413 33.6mm straight": {
             "anschluss_gerade_laenge": "33.6",
             "drive_length": "88",
-            "drive_offset": "10",
+            "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
@@ -22,10 +22,10 @@
             "radius": "194.6",
             "winkel": "24"
         },
-        "Roco Turnout 2417 w/ Roco 2419 R1 6°": {
+        "Roco Turnout L 2417 w/ Roco 2419 R1 6°": {
             "anschluss_gerade_laenge": "0",
             "drive_length": "88",
-            "drive_offset": "10",
+            "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
@@ -103,6 +103,5 @@
 
 
     },
-    "fileFormatVersion": "1",
-    "parameterSets": ""
+    "fileFormatVersion": "1"
 }

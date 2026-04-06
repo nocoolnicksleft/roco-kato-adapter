@@ -8,7 +8,7 @@
 laenge = 104.2;      
 
 // Endwinkel des Abzweigs (mit 2419 R1 Ausgleichsstück 6° =30, sonst =24 bei Roco 2417)
-winkel = 30;         // 
+winkel = 30;         // [6, 15, 24, 30]
 
 // Radius des Abzweigs
 radius = 194.6;   // [194.6, 228.2, 261.8, 295.4, 329.0, 362.6, 480]
