@@ -9,7 +9,10 @@
             "enable_exit_unijoiner": "true",
             "laenge": "104.2",
             "radius": "194.6",
-            "winkel": "24"
+            "winkel": "24",
+            "drive_cableslot_diameter": "4",
+            "drive_cableslot_offset": "80",
+            "mirrored": "false"
         },
         "Roco Turnout L 2417 w/ Roco 2413 33.6mm straight": {
             "anschluss_gerade_laenge": "33.6",
@@ -20,7 +23,9 @@
             "enable_exit_unijoiner": "true",
             "laenge": "104.2",
             "radius": "194.6",
-            "winkel": "24"
+            "winkel": "24",            "drive_cableslot_diameter": "4",
+            "drive_cableslot_offset": "80",
+            "mirrored": "false"
         },
         "Roco Turnout L 2417 w/ Roco 2419 R1 6°": {
             "anschluss_gerade_laenge": "0",
@@ -31,7 +36,51 @@
             "enable_exit_unijoiner": "true",
             "laenge": "104.2",
             "radius": "194.6",
-            "winkel": "30"
+            "winkel": "30",
+            "drive_cableslot_diameter": "4",
+            "drive_cableslot_offset": "80",
+            "mirrored": "false"
+        },
+        "Roco Turnout R 2418": {
+            "anschluss_gerade_laenge": "0",
+            "drive_length": "88",
+            "drive_offset": "6",
+            "drive_width": "10",
+            "enable_entrance_unijoiner": "true",
+            "enable_exit_unijoiner": "true",
+            "laenge": "104.2",
+            "radius": "194.6",
+            "winkel": "24",
+            "drive_cableslot_diameter": "4",
+            "drive_cableslot_offset": "80",
+            "mirrored": "false"
+        },
+        "Roco Turnout R 2418 w/ Roco 2413 33.6mm straight": {
+            "anschluss_gerade_laenge": "33.6",
+            "drive_length": "88",
+            "drive_offset": "6",
+            "drive_width": "10",
+            "enable_entrance_unijoiner": "true",
+            "enable_exit_unijoiner": "true",
+            "laenge": "104.2",
+            "radius": "194.6",
+            "winkel": "24",            "drive_cableslot_diameter": "4",
+            "drive_cableslot_offset": "80",
+            "mirrored": "true"
+        },
+        "Roco Turnout R 2418 w/ Roco 2419 R1 6°": {
+            "anschluss_gerade_laenge": "0",
+            "drive_length": "88",
+            "drive_offset": "6",
+            "drive_width": "10",
+            "enable_entrance_unijoiner": "true",
+            "enable_exit_unijoiner": "true",
+            "laenge": "104.2",
+            "radius": "194.6",
+            "winkel": "30",
+            "drive_cableslot_diameter": "4",
+            "drive_cableslot_offset": "80",
+            "mirrored": "true"
         },
         "Roco Straight 2401 Standard 104.2mm ": {
             "anschluss_gerade_laenge": "0",

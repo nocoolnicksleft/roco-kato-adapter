@@ -63,6 +63,45 @@ module strecke_bett(l) {
 module strecke_ausschnitt(l) {
    rotate(a=[90,0,90])
     linear_extrude(height= l)
-       gesamt_profil();
-            ausschnitt_profil();
+        ausschnitt_profil();
 }
+
+
+module unijoiner_receptable() {
+    slotwidth = 3;
+    translate([0, -breite_oben/4 - unijoiner_breite/2 - 0.4, 0])    
+    hull() {
+        cube([unijoiner_tiefe + 1, unijoiner_breite + 0.2, 2.5]);
+        translate([0,unijoiner_breite / 2 - slotwidth / 2 ,0]) 
+            cube([unijoiner_tiefe + 1, slotwidth, hoehe_basis - ausschnitt_tiefe]); 
+    }
+}
+
+module unijoiner_plug() {
+    width_bottom = unijoiner_breite;
+    width_middle = 2.8;
+    height_bottom = 2.6;
+    height_middle = 4.6;
+
+    width_top= width_middle + 0.6;
+    height_top = 0.6;
+    
+    //width_groove = 1.2;
+    //height_groove = 0.8;
+    
+    translate([0, breite_oben/4 - unijoiner_breite/2, 0])   
+    difference() {
+        union() {
+            cube([unijoiner_tiefe, width_bottom, height_bottom]); 
+            
+            translate([0, width_bottom / 2 - width_middle / 2, 0])
+                cube([unijoiner_tiefe, width_middle, height_middle]); 
+  
+            translate([0, width_bottom / 2 - width_top / 2, height_middle])
+                cube([unijoiner_tiefe, width_top, height_top]); 
+        }
+ //       translate([0, width_bottom / 2 - width_groove / 2 , 4.0])
+ //           cube([unijoiner_tiefe, width_groove, height_groove]); 
+    }
+}
+

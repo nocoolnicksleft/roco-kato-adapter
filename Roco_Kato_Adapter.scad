@@ -4,19 +4,20 @@
 // Mit Roco 2413 Ausgleichsstück 33.6 mm
 
 
-// Length of turnout (straight part, 104.2mm on Roco 2417)
+// Length of straight part, 0 to omit
 laenge = 104.2;      
 
-// Endwinkel des Abzweigs (mit 2419 R1 Ausgleichsstück 6° =30, sonst =24 bei Roco 2417)
-winkel = 30;         // [6, 15, 24, 30]
+// Final angle of curved part, 0 to omit
+winkel = 24;         // [0, 6, 15, 24, 30]
 
-// Radius des Abzweigs
+// Radius of the curve
 radius = 194.6;   // [194.6, 228.2, 261.8, 295.4, 329.0, 362.6, 480]
 
-// Länge des am Abzweig befindlichen geraden Stücks (33.6 für Roco 2413)
+// Additional straight length at end of the curve, 0 to omit
 anschluss_gerade_laenge = 33.6;
 
-// Length of drive platform
+/* [Drive Platform] */
+// Length of drive platform, 0 to omit
 drive_length = 88; // 88 Für Weichenantrieb bei Roco 2417
 
 // Width of drive platform
@@ -25,11 +26,24 @@ drive_width = 10.0;
 // Offset of drive platform from entry
 drive_offset = 6;
 
+// Width of the recessed area at the end of the platform
 drive_inset = 4;
 
+// Diameter of cable slot/hole
+drive_cableslot_diameter = 4;
+
+// Offset of the cable slot/hole
+drive_cableslot_offset = 80;
+
+/* [Options] */
+// Generate Unijoiner at entrance end(s)
 enable_entrance_unijoiner = true;
 
+// Generater Unijoiner at exit end(s)
 enable_exit_unijoiner = true;
+
+// Render mirrored over Y axis
+mirrored = false;
 
 module endofparms() {
     
@@ -39,14 +53,19 @@ include <Kato.scad>;
 
 
 
-
 module drive_box() {
         inset_height = 1;
-        difference() {
-            cube([drive_length, drive_width, hoehe_basis]);
-            if (drive_inset > 0) {
-                translate([0,0,hoehe_basis-ausschnitt_tiefe-inset_height])
-                    cube([drive_length, drive_inset, inset_height]);
+        cable_hole_d = 4;
+        $fn=360;
+        union () {
+            difference() {
+                cube([drive_length, drive_width, hoehe_basis]);
+                if (drive_inset > 0) {
+                    translate([0,0,hoehe_basis-ausschnitt_tiefe-inset_height])
+                        cube([drive_length, drive_inset, inset_height]);
+                }
+            translate([drive_cableslot_offset,3,0])
+                cylinder(d = drive_cableslot_diameter, h = hoehe_basis);
             }
         }
 }
@@ -56,51 +75,18 @@ module drive_cut() {
     cube([drive_length, drive_width + 1, hoehe_basis]);
 }
 
-module unijoiner_receptable() {
 
-    translate([0.0, 1.4, 0.0]) 
-        cube([unijoiner_tiefe + 1, unijoiner_breite + 0.2, hoehe_basis-1]); 
-}
-
-module unijoiner_plug() {
-    width_bottom = unijoiner_breite;
-    width_middle = 2.8;
-    height_bottom = 2.6;
-    height_middle = 4.6;
-
-    width_top= width_middle + 0.6;
-    height_top = 0.6;
-    
-    //width_groove = 1.2;
-    //height_groove = 0.8;
-    
-    translate([0, breite_oben/4 - unijoiner_breite/2, 0])   
+module roco_adapter() {
     difference() {
         union() {
-            cube([unijoiner_tiefe, width_bottom, height_bottom]); 
             
-            translate([0, width_bottom / 2 - width_middle / 2, 0])
-                cube([unijoiner_tiefe, width_middle, height_middle]); 
-  
-            translate([0, width_bottom / 2 - width_top / 2, height_middle])
-                cube([unijoiner_tiefe, width_top, height_top]); 
-        }
- //       translate([0, width_bottom / 2 - width_groove / 2 , 4.0])
- //           cube([unijoiner_tiefe, width_groove, height_groove]); 
-    }
-}
-
-module roco_2417_curved() {
-    difference() {
-        union() {
-
-            // Einfahrt
+            // Entry
             if (enable_entrance_unijoiner) {
-                translate([-unijoiner_tiefe, -10, 0])
-                    unijoiner_plug();
+                rotate([0,0,180])
+                        unijoiner_plug();
             }
 
-            // 1. Gerader Strang            
+            // 1. Straight piece
             if (laenge > 0) {
                 strecke(laenge);
                 if (enable_exit_unijoiner) {
@@ -109,10 +95,10 @@ module roco_2417_curved() {
                 }
             }
             
-            // 2. Gebogener Abzweig
+            // 2. Curved piece
             
             if (winkel > 0) {
-                // Versatz berechnen, damit der Bogen tangential am Nullpunkt startet
+
                 translate([0, radius, 0])
                      rotate([0, 0, -90])
                         bogen_bett(radius, winkel);
@@ -124,9 +110,8 @@ module roco_2417_curved() {
                                 unijoiner_plug();
                 }
                 
-                 // Optionales gerades Stück am Ende des Bogens
+                 // Optional straight piece at the end of the curve
                  if (anschluss_gerade_laenge > 0) {  
-                    // 4. Anschlussgleis gerade 33,6mm (Roco 2413) 
                     translate([sin(winkel)*radius, radius - cos(winkel)*radius, 0])
                         rotate([0, 0, winkel])
                                 strecke(anschluss_gerade_laenge);
@@ -134,7 +119,7 @@ module roco_2417_curved() {
                 
             }
   
-            // 3. Antriebsplattform
+            // 3. Drive platform
             if (drive_length > 0) {
                 translate([drive_offset, - breite_oben / 2 - drive_width, 0]) 
                     drive_box();
@@ -142,54 +127,57 @@ module roco_2417_curved() {
             
         }
 
-        // --- SCHNITTE ---
+        // --- CUTS ---
 
-        // Unijoiner Taschen
         if (enable_entrance_unijoiner) {
-            unijoiner_receptable(); // Einfahrt
+                rotate([0,0,180])
+            translate([-unijoiner_tiefe,0,0])
+                unijoiner_receptable(); // Einfahrt
         }
             
-        // Schwellenbett gerade (Aussparung)
+        // Sleeper bed straight, cutout
         if (laenge > 0) {
-            translate([0, -8.25, hoehe_basis - ausschnitt_tiefe])
-                cube([laenge + 0.1, 16.5, ausschnitt_tiefe]);
+            strecke_ausschnitt(laenge);
             
+            // Unijoiner slot at the end
             if (enable_exit_unijoiner) {
-                translate([laenge - 6.9, -10, 0]) 
-                    unijoiner_receptable(); // Ausgang Gerade
+                translate([laenge -unijoiner_tiefe-1, 0, 0]) // Move back for exits
+                        unijoiner_receptable(); 
             }
         }
 
-        // Schwellenbett gebogen (Aussparung)
+        // Sleeper bed curved, cutout
         if (winkel > 0) {
             translate([0, radius, 0])
                 rotate([0, 0, -90])
                     bogen_ausschnitt(radius, winkel);
         }
 
-        // Antrieb (Aussparung)
+        // Drive platform, cutout
         if (drive_length > 0) {
             translate([drive_offset, - breite_oben / 2 - drive_width - 0.2, hoehe_basis - ausschnitt_tiefe]) 
                     drive_cut();
         }
                 
         
+        
         if (winkel > 0) {
             if (enable_exit_unijoiner) {
                 if (anschluss_gerade_laenge == 0) {
                     
-                    // Ausgang Abzweig (Position am Ende des Bogens)
+                    // At end of curve
                     translate([sin(winkel)*radius, radius - cos(winkel)*radius, 0])
                         rotate([0, 0, winkel])
-                            translate([-unijoiner_tiefe, -breite_oben/4 - unijoiner_breite/2, 0])
-                                cube([7, unijoiner_breite + 0.2, 4.8]); 
+                            translate([-unijoiner_tiefe-1,0,0]) // Move back for exits
+                                    unijoiner_receptable();
                    
                 } else {
+                    // At end of straight after curve
                     translate([cos(winkel)*anschluss_gerade_laenge, sin(winkel)*anschluss_gerade_laenge, 0])
                         translate([sin(winkel)*radius, radius - cos(winkel)*radius, 0])
                             rotate([0, 0, winkel])
-                                translate([-unijoiner_tiefe, -breite_oben/4 - unijoiner_breite/2, 0])
-                                    cube([7, unijoiner_breite + 0.2, 4.8]); 
+                                translate([-unijoiner_tiefe-1,0,0]) // Move back for exits
+                                        unijoiner_receptable();
                     
                 }
             }
@@ -199,4 +187,9 @@ module roco_2417_curved() {
     }
 }
 
-roco_2417_curved();
+if (mirrored) {
+    mirror([0,1,0])
+     roco_adapter();
+} else {
+     roco_adapter();
+}

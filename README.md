@@ -1,8 +1,9 @@
 # Roco to Kato track adapters
 
-These parts are made to connect Roco N type track to Kato Unitrack track.
+These parts are made to connect vintage Roco N type track to Kato Unitrack.
 
-It is accomplished by a heightened bed containing a cutout to avoid the track sliding.
+It is accomplished by a heightened bed containing a cutout to avoid the track sliding,
+and a simplified version of the Kato Unijoins.
 
 
 If doing further development, I'd be pleased if you sent them to me, or make a branch at Github:
