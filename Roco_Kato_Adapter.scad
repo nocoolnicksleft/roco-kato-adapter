@@ -96,7 +96,7 @@ include <Kato.scad>;
 
 
 
-module drive_box(reverse) {
+module drive_box(reverse, drive_length, drive_width, drive_inset, drive_cableslot_diameter, drive_cableslot_offset) {
         inset_height = 1;
         $fn=360;
 
@@ -112,7 +112,7 @@ module drive_box(reverse) {
         
 }
 
-module drive_cut() {
+module drive_cut(drive_length, drive_width) {
     // Width plus two to eliminate the rim of the bed
     cube([drive_length, drive_width + 2, bed_height]);
 }
@@ -154,7 +154,23 @@ module unijoiner_plug_rev() {
  //           cube([unijoiner_depth, width_groove, height_groove]); 
     }
 }
-module roco_adapter() {
+module roco_adapter(
+    straight_length = straight_length,
+    branch_angle = branch_angle,
+    radius = radius,
+    connecting_straight_length = connecting_straight_length,
+    connected_curve_angle = connected_curve_angle,
+    connected_curve_radius = connected_curve_radius,
+    drive_length = drive_length,
+    drive_width = drive_width,
+    drive_offset = drive_offset,
+    drive_inset = drive_inset,
+    drive_cableslot_diameter = drive_cableslot_diameter,
+    drive_cableslot_offset = drive_cableslot_offset,
+    enable_entrance_unijoiner = enable_entrance_unijoiner,
+    enable_exit_unijoiner_straight = enable_exit_unijoiner_straight,
+    enable_exit_unijoiner_curved = enable_exit_unijoiner_curved,
+    mirrored = mirrored) {
     difference() {
         union() {
             
@@ -280,10 +296,10 @@ module roco_adapter() {
             if (drive_length > 0) {
                 if (mirrored) {
                 translate([drive_offset, bed_width_top / 2, 0]) 
-                    drive_box(true);
+                    drive_box(true, drive_length, drive_width, drive_inset, drive_cableslot_diameter, drive_cableslot_offset);
                 } else {
                 translate([drive_offset, - bed_width_top / 2 - drive_width, 0]) 
-                    drive_box(false);
+                    drive_box(false, drive_length, drive_width, drive_inset, drive_cableslot_diameter, drive_cableslot_offset);
                 }
             }
             
@@ -327,10 +343,10 @@ module roco_adapter() {
         if (drive_length > 0) {
             if (mirrored) {
             translate([drive_offset, bed_width_top / 2 - 1 , bed_height - recess_depth]) 
-                    drive_cut();
+                    drive_cut(drive_length, drive_width);
             } else {
             translate([drive_offset, - bed_width_top / 2 - drive_width - 0.2, bed_height - recess_depth]) 
-                    drive_cut();
+                    drive_cut(drive_length, drive_width);
             }
         }
                 
@@ -401,4 +417,45 @@ module roco_adapter() {
     }
     
 }
-     roco_adapter();
+/*
+    Positioning helpers for layout files.
+
+    after_straight_exit: transforms children to the straight exit of a piece.
+    after_curved_exit:   transforms children to the curved exit of a piece,
+                         accounting for the curve, optional connecting straight,
+                         and optional S-curve using the same formulae as the
+                         Remarks block above.
+*/
+module after_straight_exit(sl = straight_length) {
+    translate([sl, 0, 0]) children();
+}
+
+module after_curved_exit(
+    r   = radius,
+    w   = branch_angle,
+    csl = connecting_straight_length,
+    cca = connected_curve_angle,
+    ccr = connected_curve_radius,
+    m   = mirrored
+) {
+    s = m ? -1 : 1;        // sign: +1 non-mirrored, -1 mirrored
+    // Global position at the end of the turnout curve
+    cx = r * sin(w);
+    cy = s * r * (1 - cos(w));
+    if (cca != 0) {
+        // Continued by S-curve: apply curve delta in local frame
+        translate([cx, cy, 0])
+            rotate([0, 0, s * w])
+                translate([ccr * sin(cca), -s * ccr * (1 - cos(cca)), 0])
+                    rotate([0, 0, -s * cca])
+                        children();
+    } else {
+        // Connecting straight (or nothing if csl == 0) in local frame after curve
+        translate([cx, cy, 0])
+            rotate([0, 0, s * w])
+                translate([csl, 0, 0])
+                    children();
+    }
+}
+
+     if (is_undef(layout_mode)) roco_adapter();

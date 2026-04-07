@@ -70,7 +70,7 @@
             "branch_angle": "24",
             "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
-            "mirrored": "false"
+            "mirrored": "true"
         },
         "Roco Turnout R 2418 w/ Roco 2413 33.6mm straight": {
             "connecting_straight_length": "33.6",
