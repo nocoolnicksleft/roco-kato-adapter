@@ -31,7 +31,13 @@ module gesamt_profil() {
         bett_profil();
         ausschnitt_profil();
     } 
-        
+}
+
+module bogen(r, w) {
+    // Erzeugt das gebogene Bett durch Extrusion entlang eines Pfades   
+  rotate_extrude(angle = w, $fn = 360) 
+    translate([r,0, 0]) 
+        gesamt_profil();
 }
 
 module bogen_bett(r, w) {
@@ -94,10 +100,10 @@ module unijoiner_plug() {
         union() {
             cube([unijoiner_tiefe, width_bottom, height_bottom]); 
             
-            translate([0, width_bottom / 2 - width_middle / 2, 0])
+            translate([0 + 0.001, width_bottom / 2 - width_middle / 2 + 0.001, 0])
                 cube([unijoiner_tiefe, width_middle, height_middle]); 
   
-            translate([0, width_bottom / 2 - width_top / 2, height_middle])
+            translate([0 + 0.002, width_bottom / 2 - width_top / 2 + 0.002, height_middle])
                 cube([unijoiner_tiefe, width_top, height_top]); 
         }
  //       translate([0, width_bottom / 2 - width_groove / 2 , 4.0])
