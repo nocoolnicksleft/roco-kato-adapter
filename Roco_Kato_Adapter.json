@@ -1,56 +1,57 @@
 {
     "parameterSets": {
         "Roco Turnout L 2417": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "89",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "24",
+            "branch_angle": "24",
             "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
             "mirrored": "false"
         },
         "Roco Turnout L 2417 w/ Roco 2413 33.6mm straight": {
-            "anschluss_gerade_laenge": "33.6",
+            "connecting_straight_length": "33.6",
             "drive_length": "89",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "24",            "drive_cableslot_diameter": "4",
+            "branch_angle": "24",
+            "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
             "mirrored": "false"
         },
         "Roco Turnout L 2417 w/ Roco 2419 R1 6°": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "89",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "30",
+            "branch_angle": "30",
             "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
             "mirrored": "false"
         },
         "Roco Turnout L 2417 w/ Roco Curve 2420 R1 24°": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "89",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "24",
+            "branch_angle": "24",
             "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
             "connected_curve_angle": "24",  
@@ -58,244 +59,245 @@
             "mirrored": "false"
         },
         "Roco Turnout R 2418": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "89",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "24",
+            "branch_angle": "24",
             "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
             "mirrored": "false"
         },
         "Roco Turnout R 2418 w/ Roco 2413 33.6mm straight": {
-            "anschluss_gerade_laenge": "33.6",
+            "connecting_straight_length": "33.6",
             "drive_length": "89",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "24",            "drive_cableslot_diameter": "4",
+            "branch_angle": "24",
+            "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
             "mirrored": "true"
         },
         "Roco Turnout R 2418 w/ Roco 2419 R1 6°": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "89",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "30",
+            "branch_angle": "30",
             "drive_cableslot_diameter": "4",
             "drive_cableslot_offset": "80",
             "mirrored": "true"
         },
         "Roco Straight 2401 Standard 104.2mm ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "104.2",
+            "straight_length": "104.2",
             "radius": "194.6",
-            "winkel": "0"
+            "branch_angle": "0"
         },
         "Roco Straight 2426 17.2mm ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "17.2",
+            "straight_length": "17.2",
             "radius": "194.6",
-            "winkel": "0"
+            "branch_angle": "0"
         },
         "Roco Straight 2413 33.6mm ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "33.6",
+            "straight_length": "33.6",
             "radius": "194.6",
-            "winkel": "0"
+            "branch_angle": "0"
         },
         "Roco Straight 2421 50.0mm ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "50.0",
+            "straight_length": "50.0",
             "radius": "194.6",
-            "winkel": "0"
+            "branch_angle": "0"
         },
         "Roco Straight 2423 54.2mm ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "54.2",
+            "straight_length": "54.2",
             "radius": "194.6",
-            "winkel": "0"
+            "branch_angle": "0"
         },
         "Roco Decoupler 2412 76.2mm ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "54",
             "drive_offset": "3",
             "drive_width": "18",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "76.2",
+            "straight_length": "76.2",
             "radius": "194.6",
-            "winkel": "0"
+            "branch_angle": "0"
         },
 
         "Roco Curve 2420 R1 6° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "194.6",
-            "winkel": "6"
+            "branch_angle": "6"
         },
         "Roco Curve 2420 R1 24° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "194.6",
-            "winkel": "24"
+            "branch_angle": "24"
         },
         "Roco Curve 2402 R1 30° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "194.6",
-            "winkel": "30"
+            "branch_angle": "30"
         },
         "Roco Curve 2424 R2 6° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "228.2",
-            "winkel": "6"
+            "branch_angle": "6"
         },
         "Roco Curve 2425 R2 24° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "228.2",
-            "winkel": "24"
+            "branch_angle": "30"
         },
         "Roco Curve 2403 R2 30° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "228.2",
-            "winkel": "30"
+            "branch_angle": "30"
         },
         "Roco Curve 2404 R3 30° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "261.8",
-            "winkel": "30"
+            "branch_angle": "30"
         },
         "Roco Curve 2409S R3A 15° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "295.4",
-            "winkel": "15"
+            "branch_angle": "15"
         },
         "Roco Curve 2410S R3A 30° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "295.4",
-            "winkel": "30"
+            "branch_angle": "30"
         },
         "Roco Curve 2407 R4 15° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "329.0",
-            "winkel": "15"
+            "branch_angle": "15"
         },
         "Roco Curve 2408 R5 15° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "362.6",
-            "winkel": "15"
+            "branch_angle": "15"
         },
         "Roco Curve 2405 R6 15° ": {
-            "anschluss_gerade_laenge": "0",
+            "connecting_straight_length": "0",
             "drive_length": "0",
             "drive_offset": "10",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
             "enable_exit_unijoiner": "true",
-            "laenge": "0",
+            "straight_length": "0",
             "radius": "480",
-            "winkel": "15"
+            "branch_angle": "15"
         }
 
 

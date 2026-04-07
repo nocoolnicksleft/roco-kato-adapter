@@ -1,90 +1,90 @@
 
-breite_oben = 18.0;  
-breite_unten = 25.0;
-hoehe_basis = 5.0;   
+bed_width_top = 18.0;
+bed_width_bottom = 25.0;
+bed_height = 5.0;
 
-ausschnitt_tiefe = 1.5;
-unijoiner_tiefe = 6;
-unijoiner_breite = 7;
+recess_depth = 1.5;
+unijoiner_depth = 6;
+unijoiner_width = 7;
 
-module bett_profil() {
+module bed_profile() {
     polygon(points=[
-        [-breite_unten/2, 0],     // unten links
-        [breite_unten/2, 0],      // unten rechts
-        [breite_oben/2, hoehe_basis],   // oben rechts
-        [-breite_oben/2, hoehe_basis]   // oben links
+        [-bed_width_bottom/2, 0],     // bottom left
+        [bed_width_bottom/2, 0],      // bottom right
+        [bed_width_top/2, bed_height],   // top right
+        [-bed_width_top/2, bed_height]   // top left
     ]);
 }
 
-module ausschnitt_profil() {
-  breite = breite_oben - 2;
+module recess_profile() {
+  width = bed_width_top - 2;
     polygon(points=[
-        [-breite / 2, hoehe_basis - ausschnitt_tiefe],     // unten links
-        [breite / 2, hoehe_basis - ausschnitt_tiefe],      // unten rechts
-        [breite / 2, hoehe_basis + 1],   // oben rechts
-        [-breite / 2, hoehe_basis + 1]   // oben links
+        [-width / 2, bed_height - recess_depth],     // bottom left
+        [width / 2, bed_height - recess_depth],      // bottom right
+        [width / 2, bed_height + 1],   // top right
+        [-width / 2, bed_height + 1]   // top left
     ]);
 }
 
-module gesamt_profil() {
+module full_profile() {
     difference() {
-        bett_profil();
-        ausschnitt_profil();
+        bed_profile();
+        recess_profile();
     } 
 }
 
-module bogen(r, w) {
-    // Erzeugt das gebogene Bett durch Extrusion entlang eines Pfades   
+module curved_section(r, w) {
+    // Curved sleeper bed via rotational extrusion
   rotate_extrude(angle = w, $fn = 360) 
     translate([r,0, 0]) 
-        gesamt_profil();
+        full_profile();
 }
 
-module bogen_bett(r, w) {
-    // Erzeugt das gebogene Bett durch Extrusion entlang eines Pfades   
+module curved_bed(r, w) {
+    // Curved sleeper bed via rotational extrusion
   rotate_extrude(angle = w, $fn = 360) 
     translate([r,0, 0]) 
-        bett_profil();
+        bed_profile();
 }
 
-module bogen_ausschnitt(r, w) {
-  // Erzeugt das gebogene Bett durch Extrusion entlang eines Pfades
+module curved_recess(r, w) {
+  // Curved recess via rotational extrusion
   rotate_extrude(angle = w+0.01, $fn = 360) 
     translate([r,0, 0]) 
-        ausschnitt_profil();
+        recess_profile();
 }
 
-module strecke(l) {
+module straight_section(l) {
    rotate(a=[90,0,90])
     linear_extrude(height= l)
-        gesamt_profil();
+        full_profile();
 }
 
-module strecke_bett(l) {
+module straight_bed(l) {
    rotate(a=[90,0,90])
     linear_extrude(height= l)
-        bett_profil();
+        bed_profile();
 }
 
-module strecke_ausschnitt(l) {
+module straight_recess(l) {
    rotate(a=[90,0,90])
     linear_extrude(height= l)
-        ausschnitt_profil();
+        recess_profile();
 }
 
 
-module unijoiner_receptable() {
+module unijoiner_receptable(reverse=false) {
     slotwidth = 3;
-    translate([0, -breite_oben/4 - unijoiner_breite/2 - 0.4, 0])    
+    translate([0, reverse ? bed_width_top/4 - unijoiner_width/2 - 0.4 : -bed_width_top/4 - unijoiner_width/2 - 0.4, 0])    
     hull() {
-        cube([unijoiner_tiefe + 1, unijoiner_breite + 0.2, 2.5]);
-        translate([0,unijoiner_breite / 2 - slotwidth / 2 ,0]) 
-            cube([unijoiner_tiefe + 1, slotwidth, hoehe_basis - ausschnitt_tiefe]); 
+        cube([unijoiner_depth + 1, unijoiner_width + 0.2, 2.5]);
+        translate([0,unijoiner_width / 2 - slotwidth / 2 ,0]) 
+            cube([unijoiner_depth + 1, slotwidth, bed_height - recess_depth]); 
     }
 }
 
 module unijoiner_plug() {
-    width_bottom = unijoiner_breite;
+    width_bottom = unijoiner_width;
     width_middle = 2.8;
     height_bottom = 2.6;
     height_middle = 4.6;
@@ -95,19 +95,19 @@ module unijoiner_plug() {
     //width_groove = 1.2;
     //height_groove = 0.8;
     
-    translate([0, breite_oben/4 - unijoiner_breite/2, 0])   
+    translate([0, bed_width_top/4 - unijoiner_width/2, 0])   
     difference() {
         union() {
-            cube([unijoiner_tiefe, width_bottom, height_bottom]); 
+            cube([unijoiner_depth, width_bottom, height_bottom]); 
             
             translate([0 + 0.001, width_bottom / 2 - width_middle / 2 + 0.001, 0])
-                cube([unijoiner_tiefe, width_middle, height_middle]); 
+                cube([unijoiner_depth, width_middle, height_middle]); 
   
             translate([0 + 0.002, width_bottom / 2 - width_top / 2 + 0.002, height_middle])
-                cube([unijoiner_tiefe, width_top, height_top]); 
+                cube([unijoiner_depth, width_top, height_top]); 
         }
  //       translate([0, width_bottom / 2 - width_groove / 2 , 4.0])
- //           cube([unijoiner_tiefe, width_groove, height_groove]); 
+ //           cube([unijoiner_depth, width_groove, height_groove]); 
     }
 }
 
