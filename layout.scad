@@ -29,8 +29,8 @@ include <Roco_Kato_Adapter.scad>
 
 roco_adapter(
     straight_length             = 104.2,
-    branch_angle                = 23.2,
-    radius                      = 200,
+    branch_angle                = 24,
+    radius                      = 194.6,
     connecting_straight_length  = 0,
     connected_curve_angle       = 0,
     drive_length                = 89,
@@ -47,7 +47,7 @@ roco_adapter(
 
 // ── Piece 2: Roco Straight 2413 33.6mm — curved exit of piece 1 ──────────────
 
-after_curved_exit(r = 200, w = 23.2, csl = 0, cca = 0, m = true)
+after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = true)
     roco_adapter(
         straight_length             = 33.6,
         branch_angle                = 0,
@@ -61,12 +61,12 @@ after_curved_exit(r = 200, w = 23.2, csl = 0, cca = 0, m = true)
 
 // ── Piece 3: Roco Turnout L 2417 — after piece 2 ─────────────────────────────
 
-after_curved_exit(r = 200, w = 23.2, csl = 0, cca = 0, m = true)
+after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = true)
 after_straight_exit(sl = 33.6)
     roco_adapter(
         straight_length             = 104.2,
-        branch_angle                = 23.2,
-        radius                      = 200,
+        branch_angle                = 24,
+        radius                      = 194.6,
         connecting_straight_length  = 0,
         connected_curve_angle       = 0,
         drive_length                = 89,
@@ -83,9 +83,9 @@ after_straight_exit(sl = 33.6)
 
 // ── Piece 4: Roco Straight 2413 33.6mm — curved exit of piece 3 ──────────────
 
-after_curved_exit(r = 200, w = 23.2, csl = 0, cca = 0, m = true)
+after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = true)
 after_straight_exit(sl = 33.6)
-after_curved_exit(r = 200, w = 23.2, csl = 0, cca = 0, m = false)
+after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = false)
     roco_adapter(
         straight_length             = 33.6,
         branch_angle                = 0,

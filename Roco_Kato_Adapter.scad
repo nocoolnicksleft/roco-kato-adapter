@@ -154,6 +154,45 @@ module unijoiner_plug_rev() {
  //           cube([unijoiner_depth, width_groove, height_groove]); 
     }
 }
+/*
+    --- Physical calibration corrections ---
+
+    The nominal Roco track geometry (as published in catalogues and commonly cited
+    on model railway forums) does not exactly match the physical dimensions of the
+    manufactured track.  When a straight adapter printed with the nominal values is
+    inserted into the curved exit of a turnout adapter, the slight angular mismatch
+    causes the real track to bow outward.  Forcing it flat opens the rail contact
+    spring — enough to cause electrical dropouts and derailments.
+
+    The discrepancy was determined by measuring the lateral offset of the curved
+    branch exit of a Roco 2417/2418 R1 turnout from its straight axis:
+
+        Nominal:  r · (1 − cos w) = 194.6 · (1 − cos 24°) ≈ 16.82 mm
+        Measured: ≈ 16.2 mm
+
+    Solving for a corrected angle from the measured offset alone gives w ≈ 23.54°,
+    but that also shortens the X-projection of the curve (r·sin w), making the
+    overall compound plate too short.  The correct approach is to satisfy both the
+    lateral offset and the longitudinal projection simultaneously:
+
+        r_eff · (1 − cos w_eff) = 16.2 mm   (measured lateral offset)
+        r_eff · sin  w_eff      ≈ r_nom · sin w_nom   (preserve X length)
+
+    Solving: w_eff ≈ 23.2° and r_eff ≈ 200 mm.
+
+    These corrected values are applied silently inside this file via the two
+    functions below.  All user-facing parameters (branch_angle, radius, …) and
+    all entries in Roco_Kato_Adapter.json continue to use the official nominal
+    values; the translation to physical reality is entirely internal.
+
+    If you have accurate measurements of other Roco curve radii (R2–R6) or of
+    other manufacturers' track, the author would be very grateful if you shared
+    them (e.g. via a pull request or an issue on the project repository) so that
+    additional correction entries can be added here.
+*/
+function _eff_w(w, r) = (abs(w - 24) < 0.01 && abs(r - 194.6) < 0.1) ? 23.2 : w;
+function _eff_r(w, r) = (abs(w - 24) < 0.01 && abs(r - 194.6) < 0.1) ? 200 : r;
+
 module roco_adapter(
     straight_length = straight_length,
     branch_angle = branch_angle,
@@ -171,6 +210,10 @@ module roco_adapter(
     enable_exit_unijoiner_straight = enable_exit_unijoiner_straight,
     enable_exit_unijoiner_curved = enable_exit_unijoiner_curved,
     mirrored = mirrored) {
+    _w = _eff_w(branch_angle, radius);
+    _r = _eff_r(branch_angle, radius);
+    _ccw = _eff_w(connected_curve_angle, connected_curve_radius);
+    _ccrad = _eff_r(connected_curve_angle, connected_curve_radius);
     difference() {
         union() {
             
@@ -197,32 +240,32 @@ module roco_adapter(
                 
                 if (mirrored) {
                     translate([0.001,0,0]) // Epsilon
-                    translate([0, -radius, 0])
+                    translate([0, -_r, 0])
                          rotate([0, 0, -90])
                             mirror([1,0,0])
-                                curved_bed(radius, branch_angle);
+                                curved_bed(_r, _w);
 
                      // Optional straight piece at the end of the turnout curve
                      if (connecting_straight_length > 0) {  
                         translate([-0.001,0,0]) // Epsilon
                         mirror([0,1,0])
-                          translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                            rotate([0, 0, branch_angle])                         
+                          translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                            rotate([0, 0, _w])                         
                                     straight_section(connecting_straight_length);
                      }
      
 
                 } else {
                     translate([0.001,0,0]) // Epsilon
-                    translate([0, radius, 0])
+                    translate([0, _r, 0])
                          rotate([0, 0, -90])
-                            curved_bed(radius, branch_angle);
+                            curved_bed(_r, _w);
                     
                      // Optional straight piece at the end of the turnout curve
                      if (connecting_straight_length > 0) {  
                         translate([-0.001,0,0]) // Epsilon
-                        translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                            rotate([0, 0, branch_angle])
+                        translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                            rotate([0, 0, _w])
                                     straight_section(connecting_straight_length);
                      }
      
@@ -236,17 +279,17 @@ module roco_adapter(
                  if (connected_curve_angle != 0) {  
                    translate([-0.001,0,0]) // Epsilon
                    if (mirrored) {
-                       translate([sin(branch_angle)*radius, -(radius - cos(branch_angle)*radius), 0])
-                           rotate([0, 0, -branch_angle])
-                               translate([0, connected_curve_radius, 0])
+                       translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
+                           rotate([0, 0, -_w])
+                               translate([0, _ccrad, 0])
                                    rotate([0, 0, -90])
-                                       curved_section(connected_curve_radius, connected_curve_angle);
+                                       curved_section(_ccrad, _ccw);
                    } else {
-                       translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                           rotate([0, 0, branch_angle])
-                               translate([0, -connected_curve_radius, 0])
+                       translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                           rotate([0, 0, _w])
+                               translate([0, -_ccrad, 0])
                                    rotate([0, 0, 90])
-                                       curved_section(connected_curve_radius, -connected_curve_angle);
+                                       curved_section(_ccrad, -_ccw);
                    }
                  }
                  
@@ -256,16 +299,16 @@ module roco_adapter(
                      if (connected_curve_angle != 0) {
                       translate([-0.001,0,0]) // Epsilon
                       if (mirrored) {
-                          translate([sin(branch_angle)*radius, -(radius - cos(branch_angle)*radius), 0])
-                              rotate([0, 0, -branch_angle])
-                                  translate([connected_curve_radius*sin(connected_curve_angle), connected_curve_radius*(1 - cos(connected_curve_angle)), 0])
-                                      rotate([0, 0, connected_curve_angle])
+                          translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
+                              rotate([0, 0, -_w])
+                                  translate([_ccrad*sin(_ccw), _ccrad*(1 - cos(_ccw)), 0])
+                                      rotate([0, 0, _ccw])
                                           unijoiner_plug();
                       } else {
-                          translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                              rotate([0, 0, branch_angle])
-                                  translate([connected_curve_radius*sin(connected_curve_angle), -connected_curve_radius*(1 - cos(connected_curve_angle)), 0])
-                                      rotate([0, 0, -connected_curve_angle])
+                          translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                              rotate([0, 0, _w])
+                                  translate([_ccrad*sin(_ccw), -_ccrad*(1 - cos(_ccw)), 0])
+                                      rotate([0, 0, -_ccw])
                                           unijoiner_plug();
                       }
 
@@ -273,17 +316,17 @@ module roco_adapter(
                          
                          if (mirrored) {
                         translate([-0.001,0,0]) // Epsilon
-                        translate([cos(branch_angle)*connecting_straight_length, -sin(branch_angle)*connecting_straight_length, 0])
-                            translate([sin(branch_angle)*radius, -(radius - cos(branch_angle)*radius), 0])
-                                rotate([0, 0, -branch_angle])
+                        translate([cos(_w)*connecting_straight_length, -sin(_w)*connecting_straight_length, 0])
+                            translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
+                                rotate([0, 0, -_w])
                                     unijoiner_plug();
                              
                          } else {
                              
                         translate([-0.001,0,0]) // Epsilon
-                        translate([cos(branch_angle)*connecting_straight_length, sin(branch_angle)*connecting_straight_length, 0])
-                            translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                                rotate([0, 0, branch_angle])
+                        translate([cos(_w)*connecting_straight_length, sin(_w)*connecting_straight_length, 0])
+                            translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                                rotate([0, 0, _w])
                                     unijoiner_plug();
                              
                          }
@@ -328,14 +371,14 @@ module roco_adapter(
         if (branch_angle != 0) {
             
             if (mirrored) {
-                translate([0, -radius, 0])
+                translate([0, -_r, 0])
                     rotate([0, 0, -90])
                 mirror([1,0,0])
-                        curved_recess(radius, branch_angle);
+                        curved_recess(_r, _w);
             } else {
-                translate([0, radius, 0])
+                translate([0, _r, 0])
                     rotate([0, 0, -90])
-                        curved_recess(radius, branch_angle);
+                        curved_recess(_r, _w);
             }
         }
 
@@ -360,14 +403,14 @@ module roco_adapter(
                     
                         if (mirrored) {
                             // At end of turnout curve
-                            translate([sin(branch_angle)*radius, -(radius - cos(branch_angle)*radius), 0])
-                                rotate([0, 0, -branch_angle])
+                            translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
+                                rotate([0, 0, -_w])
                                     translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
                                             unijoiner_receptable();
                         } else {
                             // At end of turnout curve
-                            translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                                rotate([0, 0, branch_angle])
+                            translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                                rotate([0, 0, _w])
                                     translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
 
                                             unijoiner_receptable();
@@ -376,19 +419,19 @@ module roco_adapter(
                         } else {
 
                             if (mirrored) {
-                                translate([sin(branch_angle)*radius, -(radius - cos(branch_angle)*radius), 0])
-                                    rotate([0, 0, -branch_angle])
-                                        translate([connected_curve_radius*sin(connected_curve_angle), connected_curve_radius*(1 - cos(connected_curve_angle)), 0])
-                                            rotate([0, 0, connected_curve_angle])
+                                translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
+                                    rotate([0, 0, -_w])
+                                        translate([_ccrad*sin(_ccw), _ccrad*(1 - cos(_ccw)), 0])
+                                            rotate([0, 0, _ccw])
                                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
                                                     unijoiner_receptable();
                                 
                             } else {
                                 // At end of S-curve after turnout curve
-                                translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                                    rotate([0, 0, branch_angle])
-                                        translate([connected_curve_radius*sin(connected_curve_angle), -connected_curve_radius*(1 - cos(connected_curve_angle)), 0])
-                                            rotate([0, 0, -connected_curve_angle])
+                                translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                                    rotate([0, 0, _w])
+                                        translate([_ccrad*sin(_ccw), -_ccrad*(1 - cos(_ccw)), 0])
+                                            rotate([0, 0, -_ccw])
                                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
                                                     unijoiner_receptable();
                             }
@@ -397,16 +440,16 @@ module roco_adapter(
                 } else {
                     
                     if (mirrored) {
-                    translate([cos(branch_angle)*connecting_straight_length, -sin(branch_angle)*connecting_straight_length, 0])
-                        translate([sin(branch_angle)*radius, -(radius - cos(branch_angle)*radius), 0])
-                            rotate([0, 0, -branch_angle])
+                    translate([cos(_w)*connecting_straight_length, -sin(_w)*connecting_straight_length, 0])
+                        translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
+                            rotate([0, 0, -_w])
                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
                                         unijoiner_receptable();
                     } else {
                     // At end of straight after curve
-                    translate([cos(branch_angle)*connecting_straight_length, sin(branch_angle)*connecting_straight_length, 0])
-                        translate([sin(branch_angle)*radius, radius - cos(branch_angle)*radius, 0])
-                            rotate([0, 0, branch_angle])
+                    translate([cos(_w)*connecting_straight_length, sin(_w)*connecting_straight_length, 0])
+                        translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                            rotate([0, 0, _w])
                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
                                         unijoiner_receptable();
                     }
@@ -438,21 +481,25 @@ module after_curved_exit(
     ccr = connected_curve_radius,
     m   = mirrored
 ) {
+    _w = _eff_w(w, r);
+    _r = _eff_r(w, r);
+    _cca = _eff_w(cca, ccr);
+    _ccrad = _eff_r(cca, ccr);
     s = m ? -1 : 1;        // sign: +1 non-mirrored, -1 mirrored
     // Global position at the end of the turnout curve
-    cx = r * sin(w);
-    cy = s * r * (1 - cos(w));
+    cx = _r * sin(_w);
+    cy = s * _r * (1 - cos(_w));
     if (cca != 0) {
         // Continued by S-curve: apply curve delta in local frame
         translate([cx, cy, 0])
-            rotate([0, 0, s * w])
-                translate([ccr * sin(cca), -s * ccr * (1 - cos(cca)), 0])
-                    rotate([0, 0, -s * cca])
+            rotate([0, 0, s * _w])
+                translate([_ccrad * sin(_cca), -s * _ccrad * (1 - cos(_cca)), 0])
+                    rotate([0, 0, -s * _cca])
                         children();
     } else {
         // Connecting straight (or nothing if csl == 0) in local frame after curve
         translate([cx, cy, 0])
-            rotate([0, 0, s * w])
+            rotate([0, 0, s * _w])
                 translate([csl, 0, 0])
                     children();
     }

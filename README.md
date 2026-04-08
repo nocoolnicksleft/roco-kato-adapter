@@ -161,6 +161,16 @@ Glue the adapter bed to the underside of the Roco track piece while the piece is
 PETG is recommended where higher durability or temperature resistance is needed, but PLA works equally well in a typical indoor layout (results on floor heating may vary, depending on your temperature comfort zone).
 
 ---
+
+## Physical Calibration
+
+The nominal Roco track dimensions (radius, angle) published in catalogues do not perfectly match the manufactured parts. The Roco R1 turnout (2417/2418), for example, has a measured lateral branch offset of ≈ 16.2 mm versus the nominal 16.82 mm — a difference of less than a millimetre, but enough to cause the track to bow and open the rail contacts when inserted into a tightly printed adapter bed.
+
+The adapter compensates for this silently: all parameters and JSON presets use the official nominal values as usual, and the correction (R1: 24°/194.6 mm → 23.2°/200 mm) is applied internally in `Roco_Kato_Adapter.scad`.
+
+Calibration data is currently only available for **Roco R1**. If you have accurate measurements for other radii (R2–R6) or other manufacturers' track, the author would be very pleased if you shared them — for example via a pull request or an issue on the repository. The more data that can be collected, the better the fit will be for everyone.
+
+---
 ## Tinkerers' little helpers
 
 Optimization, documentation and framework were assisted by AI, namely Github Copilot and Claude Sonnet.
