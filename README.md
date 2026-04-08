@@ -1,4 +1,4 @@
-# Roco to Kato Track Adapters
+# Roco N (and others) to Kato Track Adapters
 
 Parametric OpenSCAD adapter beds for N-scale [Roco](https://www.roco.cc/) track to connect to the [Kato Unitrack](https://www.katomodels.com/unitrack) system.
 
@@ -6,7 +6,11 @@ The adapters are printed and glued to the underside of Roco track pieces, adding
 
 25 pre-built configurations are included, covering all common Roco straights, curves and turnouts. Custom pieces and multi-piece layout plates can be generated with a few lines of OpenSCAD.
 
-In general, they should work with any Code 80 system without bedding. (Roco N, Fleischmann and Minitrix) From experience, I recommend not mixing Trix and Roco track on the same base, as the slight difference in height can cause trouble.
+In general, they should work with any bedless Code 80 system. (Roco N, Fleischmann, Minitrix, Peco, Atlas) From personal experience, I recommend not mixing Minitrix and Roco track on the same base, as the slight difference in height can cause trouble.
+
+You can use the stl files of the pre-built models with any slicer. If you want to work with custom settings or do other modifications you will need OpenSCAD, and Python 3 for the export script.
+
+Layer height should be 0.1mm or less.
 
 ---
 
@@ -56,7 +60,7 @@ Run `./export_stl.sh` to generate all STL files and preview images from the para
 
 1. Run `./export_stl.sh` to generate all STL files into the `stl/` folder
    (also generates PNG previews into `img/` for reference).
-2. Open the desired STL in PrusaSlicer and print.
+2. Open the desired STL in desired Slicer and print.
 
 Pre-built configurations are defined in `Roco_Kato_Adapter.json`. To use one directly in OpenSCAD:
 
