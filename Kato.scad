@@ -92,9 +92,6 @@ module unijoiner_plug() {
     width_top= width_middle + 0.6;
     height_top = 0.6;
     
-    //width_groove = 1.2;
-    //height_groove = 0.8;
-    
     translate([0, bed_width_top/4 - unijoiner_width/2, 0])   
     difference() {
         union() {
@@ -106,8 +103,6 @@ module unijoiner_plug() {
             translate([0 + 0.002, width_bottom / 2 - width_top / 2 + 0.002, height_middle])
                 cube([unijoiner_depth, width_top, height_top]); 
         }
- //       translate([0, width_bottom / 2 - width_groove / 2 , 4.0])
- //           cube([unijoiner_depth, width_groove, height_groove]); 
     }
 }
 

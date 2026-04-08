@@ -6,6 +6,8 @@ The adapters are printed and glued to the underside of Roco track pieces, adding
 
 25 pre-built configurations are included, covering all common Roco straights, curves and turnouts. Custom pieces and multi-piece layout plates can be generated with a few lines of OpenSCAD.
 
+In general, they should work with any Code 80 system without bedding. (Roco N, Fleischmann and Minitrix) From experience, I recommend not mixing Trix and Roco track on the same base, as the slight difference in height can cause trouble.
+
 ---
 
 ## Pre-Built Models
@@ -17,10 +19,10 @@ Run `./export_stl.sh` to generate all STL files and preview images from the para
 | Model | Preview |
 |---|:---:|
 | **Roco Turnout L 2417** — left, 24°, R194.6, with drive platform | <img src="img/Roco_Turnout_L_2417.png" width="220"> |
-| **Roco Turnout L 2417 w/ Roco 2413 33.6mm straight** — with parallel-exit straight | <img src="img/Roco_Turnout_L_2417_w_Roco_2413_33.6mm_straight.png" width="220"> |
-| **Roco Turnout L 2417 w/ Roco 2419 R1 6°** — with 6° S-curve appended | <img src="img/Roco_Turnout_L_2417_w_Roco_2419_R1_6.png" width="220"> |
+| **Roco Turnout L 2417 w/ Roco 2413 33.6mm straight** on turnout | <img src="img/Roco_Turnout_L_2417_w_Roco_2413_33.6mm_straight.png" width="220"> |
+| **Roco Turnout L 2417 w/ Roco 2419 R1 6°** — with 6° curve appended | <img src="img/Roco_Turnout_L_2417_w_Roco_2419_R1_6.png" width="220"> |
 | **Roco Turnout L 2417 w/ Roco Curve 2420 R1 24°** — with 24° S-curve appended | <img src="img/Roco_Turnout_L_2417_w_Roco_Curve_2420_R1_24.png" width="220"> |
-| **Roco Turnout R 2418** — right (mirrored), 24°, R194.6, with drive platform | <img src="img/Roco_Turnout_R_2418.png" width="220"> |
+| **Roco Turnout R 2418** — right 24°, R194.6, with drive platform | <img src="img/Roco_Turnout_R_2418.png" width="220"> |
 | **Roco Turnout R 2418 w/ Roco 2413 33.6mm straight** | <img src="img/Roco_Turnout_R_2418_w_Roco_2413_33.6mm_straight.png" width="220"> |
 | **Roco Turnout R 2418 w/ Roco 2419 R1 6°** | <img src="img/Roco_Turnout_R_2418_w_Roco_2419_R1_6.png" width="220"> |
 
@@ -152,9 +154,12 @@ Glue the adapter bed to the underside of the Roco track piece while the piece is
 | Walls / Perimeters | 3 |
 | Tested on | Prusa MK3, PrusaSlicer 2.x |
 
-PETG is recommended where higher durability or temperature resistance is needed, but PLA works equally well in a typical indoor layout.
+PETG is recommended where higher durability or temperature resistance is needed, but PLA works equally well in a typical indoor layout (results on floor heating may vary, depending on your temperature comfort zone).
 
 ---
+## Tinkerers' little helpers
+
+Optimization, documentation and framework were assisted by AI, namely Github Copilot and Claude Sonnet.
 
 ## License
 
