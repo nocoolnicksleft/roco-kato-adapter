@@ -10,7 +10,7 @@ branch_angle = 24;         // [0, 6, 15, 24, 30]
 radius = 194.6;   // [194.6, 228.2, 261.8, 295.4, 329.0, 362.6, 480]
 
 // Straight section appended to end of branch curve, 0 to omit
-connecting_straight_length = 33.6;
+connecting_straight_length = 0;
 
 // S-curve angle appended after branch curve (to make exits parallel), 0 to omit
 connected_curve_angle = 0; // [0, 6, 15, 24, 30]
@@ -46,6 +46,9 @@ enable_exit_unijoiner_straight = true;
 
 // Generate Unijoiner at curved end
 enable_exit_unijoiner_curved = true;
+
+// Add small cylindrical rims around the unijoiner receptacles. Needed for firm connection with original Unitrack. Switch off for better fit with 3D-printed Unitrack
+enable_rims = true; 
 
 // Render mirrored over Y axis (right-hand turnout)
 mirrored = true;
@@ -127,33 +130,6 @@ module unijoiner_receptable_rev() {
     }
 }
 
-module unijoiner_plug_rev() {
-    width_bottom = unijoiner_width;
-    width_middle = 2.8;
-    height_bottom = 2.6;
-    height_middle = 4.6;
-
-    width_top= width_middle + 0.6;
-    height_top = 0.6;
-    
-    //width_groove = 1.2;
-    //height_groove = 0.8;
-    
-    translate([0, -bed_width_top/4 - unijoiner_width/2, 0])   
-    difference() {
-        union() {
-            cube([unijoiner_depth, width_bottom, height_bottom]); 
-            
-            translate([0 + 0.001, width_bottom / 2 - width_middle / 2 + 0.001, 0])
-                cube([unijoiner_depth, width_middle, height_middle]); 
-  
-            translate([0 + 0.002, width_bottom / 2 - width_top / 2 + 0.002, height_middle])
-                cube([unijoiner_depth, width_top, height_top]); 
-        }
- //       translate([0, width_bottom / 2 - width_groove / 2 , 4.0])
- //           cube([unijoiner_depth, width_groove, height_groove]); 
-    }
-}
 /*
     --- Physical calibration corrections ---
 
@@ -209,7 +185,8 @@ module roco_adapter(
     enable_entrance_unijoiner = enable_entrance_unijoiner,
     enable_exit_unijoiner_straight = enable_exit_unijoiner_straight,
     enable_exit_unijoiner_curved = enable_exit_unijoiner_curved,
-    mirrored = mirrored) {
+    mirrored = mirrored,
+    enable_rims = enable_rims) {
     _w = _eff_w(branch_angle, radius);
     _r = _eff_r(branch_angle, radius);
     _ccw = _eff_w(connected_curve_angle, connected_curve_radius);
@@ -362,7 +339,7 @@ module roco_adapter(
             
             // Unijoiner slot at the end
             if (enable_exit_unijoiner_straight) {
-                translate([straight_length -unijoiner_depth-1, 0, 0]) // Move back for exits
+                translate([straight_length -unijoiner_depth-0.9, 0, 0]) // Move back for exits
                         unijoiner_receptable(); 
             }
         }

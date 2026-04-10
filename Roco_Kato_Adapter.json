@@ -2,7 +2,7 @@
     "parameterSets": {
         "Roco Turnout L 2417": {
             "connecting_straight_length": "0",
-            "drive_length": "89",
+            "drive_length": "90",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
@@ -16,7 +16,7 @@
         },
         "Roco Turnout L 2417 w/ Roco 2413 33.6mm straight": {
             "connecting_straight_length": "33.6",
-            "drive_length": "89",
+            "drive_length": "90",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
@@ -30,7 +30,7 @@
         },
         "Roco Turnout L 2417 w/ Roco 2419 R1 6°": {
             "connecting_straight_length": "0",
-            "drive_length": "89",
+            "drive_length": "90",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
@@ -44,7 +44,7 @@
         },
         "Roco Turnout L 2417 w/ Roco Curve 2420 R1 24°": {
             "connecting_straight_length": "0",
-            "drive_length": "89",
+            "drive_length": "90",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
@@ -60,7 +60,7 @@
         },
         "Roco Turnout R 2418": {
             "connecting_straight_length": "0",
-            "drive_length": "89",
+            "drive_length": "90",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
@@ -74,7 +74,7 @@
         },
         "Roco Turnout R 2418 w/ Roco 2413 33.6mm straight": {
             "connecting_straight_length": "33.6",
-            "drive_length": "89",
+            "drive_length": "90",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",
@@ -88,7 +88,7 @@
         },
         "Roco Turnout R 2418 w/ Roco 2419 R1 6°": {
             "connecting_straight_length": "0",
-            "drive_length": "89",
+            "drive_length": "90",
             "drive_offset": "6",
             "drive_width": "10",
             "enable_entrance_unijoiner": "true",

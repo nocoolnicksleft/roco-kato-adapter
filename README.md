@@ -10,7 +10,7 @@ In general, they should work with any bedless Code 80 system. (Roco N, Fleischma
 
 You can use the stl files of the pre-built models with any slicer. If you want to work with custom settings or do other modifications you will need OpenSCAD, and Python 3 for the export script.
 
-Layer height should be 0.1mm or less.
+Use **0.1 mm layer height** and **supports** — both are required for successful prints (see Print Settings below).
 
 ---
 
@@ -56,6 +56,12 @@ Run `./export_stl.sh` to generate all STL files and preview images from the para
 
 ## Usage
 
+### Prepare the track
+
+To accomodate for the Unijoiner receptable,the last two sleepers of the track must be cut and half of them removed. 
+
+If you dont want to cut the sleepers, you can use SCAD to generate versions without Unijoiners and glue them together, or compose an individual model from multiple parts (see below). 
+
 ### 1 — Print a Pre-Built Model
 
 1. Run `./export_stl.sh` to generate all STL files into the `stl/` folder
@@ -70,7 +76,7 @@ openscad -o my_piece.stl -p Roco_Kato_Adapter.json -P "Roco Turnout L 2417" Roco
 
 ### 2 — Customise a Single Piece
 
-Open `Roco_Kato_Adapter.scad` in OpenSCAD. The **Customizer** panel (View → Customizer) exposes all parameters with drop-down lists of valid values. Adjust, preview, then export the STL.
+Open `Roco_Kato_Adapter.scad` in OpenSCAD. The **Customizer** panel (View → Customizer) exposes all parameters with drop-down lists of valid values. Adjust, preview, render, then export the STL.
 
 You can also add a new entry to `Roco_Kato_Adapter.json` with your custom parameter values so it becomes part of the batch export.
 
@@ -150,13 +156,15 @@ Glue the adapter bed to the underside of the Roco track piece while the piece is
 
 | Parameter | Value |
 |---|---|
-| Layer Height | 0.1 mm |
+| Layer Height | **0.1 mm** (critical — see note below) |
 | Infill | 20% |
 | Infill Pattern | Gyroid |
-| Supports | No |
+| Supports | **Yes** (critical — see note below) |
 | Material | PLA or PETG |
 | Walls / Perimeters | 3 |
 | Tested on | Prusa MK3, PrusaSlicer 2.x |
+
+> **Critical settings:** 0.1 mm layer height is required to resolve the fine detail of the Unijoiner plug and slot geometry — coarser layers will produce connectors that are too loose or too tight. The overhangs on the connector faces need support from the bed.
 
 PETG is recommended where higher durability or temperature resistance is needed, but PLA works equally well in a typical indoor layout (results on floor heating may vary, depending on your temperature comfort zone).
 
@@ -168,7 +176,7 @@ The nominal Roco track dimensions (radius, angle) published in catalogues do not
 
 The adapter compensates for this silently: all parameters and JSON presets use the official nominal values as usual, and the correction (R1: 24°/194.6 mm → 23.2°/200 mm) is applied internally in `Roco_Kato_Adapter.scad`.
 
-Calibration data is currently only available for **Roco R1**. If you have accurate measurements for other radii (R2–R6) or other manufacturers' track, the author would be very pleased if you shared them — for example via a pull request or an issue on the repository. The more data that can be collected, the better the fit will be for everyone.
+Calibration data is currently only available for **Roco R1**. If you have accurate measurements for other radii (R2–R6) or other manufacturers' track, I would be very pleased if you shared them — for example via a pull request or an issue on the repository. The more data that can be collected, the better the fit will be for everyone.
 
 ---
 ## Tinkerers' little helpers

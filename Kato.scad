@@ -4,6 +4,7 @@ bed_width_bottom = 25.0;
 bed_height = 5.0;
 
 recess_depth = 1.5;
+recess_width = bed_width_top - 1.8;
 unijoiner_depth = 6;
 unijoiner_width = 7;
 
@@ -17,12 +18,11 @@ module bed_profile() {
 }
 
 module recess_profile() {
-  width = bed_width_top - 2;
     polygon(points=[
-        [-width / 2, bed_height - recess_depth],     // bottom left
-        [width / 2, bed_height - recess_depth],      // bottom right
-        [width / 2, bed_height + 1],   // top right
-        [-width / 2, bed_height + 1]   // top left
+        [-recess_width / 2, bed_height - recess_depth],     // bottom left
+        [recess_width / 2, bed_height - recess_depth],      // bottom right
+        [recess_width / 2, bed_height + 1],   // top right
+        [-recess_width / 2, bed_height + 1]   // top left
     ]);
 }
 
@@ -73,13 +73,25 @@ module straight_recess(l) {
 }
 
 
-module unijoiner_receptable(reverse=false) {
+module unijoiner_receptable(reverse=false,rims=true) {
     slotwidth = 3;
-    translate([0, reverse ? bed_width_top/4 - unijoiner_width/2 - 0.4 : -bed_width_top/4 - unijoiner_width/2 - 0.4, 0])    
-    hull() {
-        cube([unijoiner_depth + 1, unijoiner_width + 0.2, 2.5]);
-        translate([0,unijoiner_width / 2 - slotwidth / 2 ,0]) 
-            cube([unijoiner_depth + 1, slotwidth, bed_height - recess_depth]); 
+    width_bottom = unijoiner_width;
+    height_bottom = 2.8;
+    translate([0, reverse ? bed_width_top/4 - unijoiner_width/2 - 1.6 : -bed_width_top/4 - unijoiner_width/2 - 0.4, 0])    
+    difference() {
+        union() {
+            cube([unijoiner_depth + 1, unijoiner_width + 0.8, height_bottom]);
+            translate([0,(unijoiner_width + 0.8)/ 2 - slotwidth / 2 ,0]) 
+                cube([unijoiner_depth + 1, slotwidth, bed_height - recess_depth]); 
+            $fn=360;
+            
+        }
+        if (rims) {
+            translate([unijoiner_depth + 0.8 , 0, 0])
+                cylinder(h=height_bottom, r=0.5, $fn=360);
+            translate([unijoiner_depth + 0.8, width_bottom + 0.8, 0])
+                cylinder(h=height_bottom, r=0.5, $fn=360);
+        }
     }
 }
 
@@ -92,7 +104,7 @@ module unijoiner_plug() {
     width_top= width_middle + 0.6;
     height_top = 0.6;
     
-    translate([0, bed_width_top/4 - unijoiner_width/2, 0])   
+    translate([0, bed_width_top/4 - unijoiner_width/2 + 0.2, 0])   
     difference() {
         union() {
             cube([unijoiner_depth, width_bottom, height_bottom]); 
@@ -102,6 +114,11 @@ module unijoiner_plug() {
   
             translate([0 + 0.002, width_bottom / 2 - width_top / 2 + 0.002, height_middle])
                 cube([unijoiner_depth, width_top, height_top]); 
+
+            translate([unijoiner_depth / 3 -0.4, 0, 0])
+                cylinder(h=height_bottom, r=0.7, $fn=360);
+            translate([unijoiner_depth / 3 -0.4, width_bottom, 0])
+                cylinder(h=height_bottom, r=0.7, $fn=360);
         }
     }
 }
