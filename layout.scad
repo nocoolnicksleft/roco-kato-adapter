@@ -1,5 +1,5 @@
 /*
-    layout.scad — Multi-piece layout plate.
+    layout.scad - Multi-piece layout plate.
 
     Diagram (curved exits branch away from the straight axis):
 
@@ -33,7 +33,7 @@ roco_adapter(
     radius                      = 194.6,
     connecting_straight_length  = 0,
     connected_curve_angle       = 0,
-    drive_length                = 89,
+    drive_length                = 90,
     drive_width                 = 10,
     drive_offset                = 6,
     drive_inset                 = 4,
@@ -45,7 +45,7 @@ roco_adapter(
     mirrored                    = true
 );
 
-// ── Piece 2: Roco Straight 2413 33.6mm — curved exit of piece 1 ──────────────
+// ── Piece 2: Roco Straight 2413 33.6mm - curved exit of piece 1 ──────────────
 
 after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = true)
     roco_adapter(
@@ -59,7 +59,7 @@ after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = true)
         mirrored                    = false
     );
 
-// ── Piece 3: Roco Turnout L 2417 — after piece 2 ─────────────────────────────
+// ── Piece 3: Roco Turnout L 2417 - after piece 2 ─────────────────────────────
 
 after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = true)
 after_straight_exit(sl = 33.6)
@@ -69,7 +69,7 @@ after_straight_exit(sl = 33.6)
         radius                      = 194.6,
         connecting_straight_length  = 0,
         connected_curve_angle       = 0,
-        drive_length                = 89,
+        drive_length                = 90,
         drive_width                 = 10,
         drive_offset                = 6,
         drive_inset                 = 4,
@@ -81,7 +81,7 @@ after_straight_exit(sl = 33.6)
         mirrored                    = false
     );
 
-// ── Piece 4: Roco Straight 2413 33.6mm — curved exit of piece 3 ──────────────
+// ── Piece 4: Roco Straight 2413 33.6mm - curved exit of piece 3 ──────────────
 
 after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = true)
 after_straight_exit(sl = 33.6)

@@ -138,7 +138,7 @@ module unijoiner_receptable_rev() {
     manufactured track.  When a straight adapter printed with the nominal values is
     inserted into the curved exit of a turnout adapter, the slight angular mismatch
     causes the real track to bow outward.  Forcing it flat opens the rail contact
-    spring — enough to cause electrical dropouts and derailments.
+    spring - enough to cause electrical dropouts and derailments.
 
     The discrepancy was determined by measuring the lateral offset of the curved
     branch exit of a Roco 2417/2418 R1 turnout from its straight axis:
@@ -330,7 +330,7 @@ module roco_adapter(
         if (enable_entrance_unijoiner) {
                 rotate([0,0,180])
             translate([-unijoiner_depth-1,0,0])
-                unijoiner_receptable(); // Entry
+                unijoiner_receptable(rims=enable_rims); // Entry
         }
             
         // Sleeper bed straight, cutout
@@ -340,7 +340,7 @@ module roco_adapter(
             // Unijoiner slot at the end
             if (enable_exit_unijoiner_straight) {
                 translate([straight_length -unijoiner_depth-0.9, 0, 0]) // Move back for exits
-                        unijoiner_receptable(); 
+                        unijoiner_receptable(rims=enable_rims); 
             }
         }
 
@@ -383,14 +383,14 @@ module roco_adapter(
                             translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
                                 rotate([0, 0, -_w])
                                     translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
-                                            unijoiner_receptable();
+                                            unijoiner_receptable(rims=enable_rims);
                         } else {
                             // At end of turnout curve
                             translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
                                 rotate([0, 0, _w])
                                     translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
 
-                                            unijoiner_receptable();
+                                            unijoiner_receptable(rims=enable_rims);
                         }
                         
                         } else {
@@ -401,7 +401,7 @@ module roco_adapter(
                                         translate([_ccrad*sin(_ccw), _ccrad*(1 - cos(_ccw)), 0])
                                             rotate([0, 0, _ccw])
                                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
-                                                    unijoiner_receptable();
+                                                    unijoiner_receptable(rims=enable_rims);
                                 
                             } else {
                                 // At end of S-curve after turnout curve
@@ -410,7 +410,7 @@ module roco_adapter(
                                         translate([_ccrad*sin(_ccw), -_ccrad*(1 - cos(_ccw)), 0])
                                             rotate([0, 0, -_ccw])
                                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
-                                                    unijoiner_receptable();
+                                                    unijoiner_receptable(rims=enable_rims);
                             }
                     }
                    
@@ -421,14 +421,14 @@ module roco_adapter(
                         translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
                             rotate([0, 0, -_w])
                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
-                                        unijoiner_receptable();
+                                        unijoiner_receptable(rims=enable_rims);
                     } else {
                     // At end of straight after curve
                     translate([cos(_w)*connecting_straight_length, sin(_w)*connecting_straight_length, 0])
                         translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
                             rotate([0, 0, _w])
                                 translate([-unijoiner_depth-0.9,0,0]) // Move back for exits
-                                        unijoiner_receptable();
+                                        unijoiner_receptable(rims=enable_rims);
                     }
                 }
             }

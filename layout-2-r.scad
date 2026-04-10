@@ -1,5 +1,5 @@
 /*
-    layout.scad — Multi-piece layout plate.
+    layout.scad - Multi-piece layout plate.
 
     Diagram (curved exits branch away from the straight axis):
 
@@ -33,7 +33,7 @@ roco_adapter(
     radius                      = 194.6,
     connecting_straight_length  = 0,
     connected_curve_angle       = 0,
-    drive_length                = 89,
+    drive_length                = 90,
     drive_width                 = 10,
     drive_offset                = 7,
     drive_inset                 = 4,
@@ -48,7 +48,7 @@ roco_adapter(
 
 
 
-// ── Piece 2: Roco Curve 2420 R1 24° — curved exit of piece 1 ──────────────
+// ── Piece 2: Roco Curve 2420 R1 24° - curved exit of piece 1 ──────────────
 after_straight_exit(sl = 104.2)
     roco_adapter(
             connecting_straight_length = 0,

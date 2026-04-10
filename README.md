@@ -10,7 +10,7 @@ In general, they should work with any bedless Code 80 system. (Roco N, Fleischma
 
 You can use the stl files of the pre-built models with any slicer. If you want to work with custom settings or do other modifications you will need OpenSCAD, and Python 3 for the export script.
 
-Use **0.1 mm layer height** and **supports** — both are required for successful prints (see Print Settings below).
+Use **0.1 mm layer height** and **supports** - both are required for successful prints (see Print Settings below).
 
 ---
 
@@ -22,11 +22,11 @@ Run `./export_stl.sh` to generate all STL files and preview images from the para
 
 | Model | Preview |
 |---|:---:|
-| **Roco Turnout L 2417** — left, 24°, R194.6, with drive platform | <img src="img/Roco_Turnout_L_2417.png" width="220"> |
+| **Roco Turnout L 2417** - left, 24°, R194.6, with drive platform | <img src="img/Roco_Turnout_L_2417.png" width="220"> |
 | **Roco Turnout L 2417 w/ Roco 2413 33.6mm straight** on turnout | <img src="img/Roco_Turnout_L_2417_w_Roco_2413_33.6mm_straight.png" width="220"> |
-| **Roco Turnout L 2417 w/ Roco 2419 R1 6°** — with 6° curve appended | <img src="img/Roco_Turnout_L_2417_w_Roco_2419_R1_6.png" width="220"> |
-| **Roco Turnout L 2417 w/ Roco Curve 2420 R1 24°** — with 24° S-curve appended | <img src="img/Roco_Turnout_L_2417_w_Roco_Curve_2420_R1_24.png" width="220"> |
-| **Roco Turnout R 2418** — right 24°, R194.6, with drive platform | <img src="img/Roco_Turnout_R_2418.png" width="220"> |
+| **Roco Turnout L 2417 w/ Roco 2419 R1 6°** - with 6° curve appended | <img src="img/Roco_Turnout_L_2417_w_Roco_2419_R1_6.png" width="220"> |
+| **Roco Turnout L 2417 w/ Roco Curve 2420 R1 24°** - with 24° S-curve appended | <img src="img/Roco_Turnout_L_2417_w_Roco_Curve_2420_R1_24.png" width="220"> |
+| **Roco Turnout R 2418** - right 24°, R194.6, with drive platform | <img src="img/Roco_Turnout_R_2418.png" width="220"> |
 | **Roco Turnout R 2418 w/ Roco 2413 33.6mm straight** | <img src="img/Roco_Turnout_R_2418_w_Roco_2413_33.6mm_straight.png" width="220"> |
 | **Roco Turnout R 2418 w/ Roco 2419 R1 6°** | <img src="img/Roco_Turnout_R_2418_w_Roco_2419_R1_6.png" width="220"> |
 
@@ -34,12 +34,12 @@ Run `./export_stl.sh` to generate all STL files and preview images from the para
 
 | Model | Preview |
 |---|:---:|
-| **Roco Straight 2401** — 104.2 mm standard straight | <img src="img/Roco_Straight_2401_Standard_104.2mm.png" width="220"> |
-| **Roco Straight 2426** — 17.2 mm | <img src="img/Roco_Straight_2426_17.2mm.png" width="220"> |
-| **Roco Straight 2413** — 33.6 mm | <img src="img/Roco_Straight_2413_33.6mm.png" width="220"> |
-| **Roco Straight 2421** — 50.0 mm | <img src="img/Roco_Straight_2421_50.0mm.png" width="220"> |
-| **Roco Straight 2423** — 54.2 mm | <img src="img/Roco_Straight_2423_54.2mm.png" width="220"> |
-| **Roco Decoupler 2412** — 76.2 mm, with drive platform | <img src="img/Roco_Decoupler_2412_76.2mm.png" width="220"> |
+| **Roco Straight 2401** - 104.2 mm standard straight | <img src="img/Roco_Straight_2401_Standard_104.2mm.png" width="220"> |
+| **Roco Straight 2426** - 17.2 mm | <img src="img/Roco_Straight_2426_17.2mm.png" width="220"> |
+| **Roco Straight 2413** - 33.6 mm | <img src="img/Roco_Straight_2413_33.6mm.png" width="220"> |
+| **Roco Straight 2421** - 50.0 mm | <img src="img/Roco_Straight_2421_50.0mm.png" width="220"> |
+| **Roco Straight 2423** - 54.2 mm | <img src="img/Roco_Straight_2423_54.2mm.png" width="220"> |
+| **Roco Decoupler 2412** - 76.2 mm, with drive platform | <img src="img/Roco_Decoupler_2412_76.2mm.png" width="220"> |
 
 ### Curves
 
@@ -62,7 +62,7 @@ To accomodate for the Unijoiner receptable,the last two sleepers of the track mu
 
 If you dont want to cut the sleepers, you can use SCAD to generate versions without Unijoiners and glue them together, or compose an individual model from multiple parts (see below). 
 
-### 1 — Print a Pre-Built Model
+### 1: Print a Pre-Built Model
 
 1. Run `./export_stl.sh` to generate all STL files into the `stl/` folder
    (also generates PNG previews into `img/` for reference).
@@ -74,13 +74,13 @@ Pre-built configurations are defined in `Roco_Kato_Adapter.json`. To use one dir
 openscad -o my_piece.stl -p Roco_Kato_Adapter.json -P "Roco Turnout L 2417" Roco_Kato_Adapter.scad
 ```
 
-### 2 — Customise a Single Piece
+### 2: Customise a Single Piece
 
 Open `Roco_Kato_Adapter.scad` in OpenSCAD. The **Customizer** panel (View → Customizer) exposes all parameters with drop-down lists of valid values. Adjust, preview, render, then export the STL.
 
 You can also add a new entry to `Roco_Kato_Adapter.json` with your custom parameter values so it becomes part of the batch export.
 
-### 3 — Compose a Multi-Piece Layout Plate
+### 3: Compose a Multi-Piece Layout Plate
 
 For printing multiple connected pieces as a single object, use `layout.scad` as a starting point. It `include`s `Roco_Kato_Adapter.scad` and calls `roco_adapter()` multiple times, using the positioning helpers to chain pieces end-to-end exactly.
 
@@ -100,7 +100,7 @@ after_curved_exit(r=194.6, w=24, csl=0, cca=0, m=false)
     roco_adapter(straight_length=104.2, branch_angle=24, enable_entrance_unijoiner=false, ...);
 ```
 
-**Unijoiner rule for joined pieces:** at every internal joint (where two pieces meet and are printed as one), disable the unijoiner on **both** sides — the exit unijoiner of the upstream piece and the entrance unijoiner of the downstream piece. Only the outer ends that connect to actual Kato Unitrack need unijoiners.
+**Unijoiner rule for joined pieces:** at every internal joint (where two pieces meet and are printed as one), disable the unijoiner on **both** sides - the exit unijoiner of the upstream piece and the entrance unijoiner of the downstream piece. Only the outer ends that connect to actual Kato Unitrack need unijoiners.
 
 ---
 
@@ -156,15 +156,15 @@ Glue the adapter bed to the underside of the Roco track piece while the piece is
 
 | Parameter | Value |
 |---|---|
-| Layer Height | **0.1 mm** (critical — see note below) |
+| Layer Height | **0.1 mm** (critical - see note below) |
 | Infill | 20% |
 | Infill Pattern | Gyroid |
-| Supports | **Yes** (critical — see note below) |
+| Supports | **Yes** (critical - see note below) |
 | Material | PLA or PETG |
 | Walls / Perimeters | 3 |
 | Tested on | Prusa MK3, PrusaSlicer 2.x |
 
-> **Critical settings:** 0.1 mm layer height is required to resolve the fine detail of the Unijoiner plug and slot geometry — coarser layers will produce connectors that are too loose or too tight. The overhangs on the connector faces need support from the bed.
+> **Critical settings:** 0.1 mm layer height is required to resolve the fine detail of the Unijoiner plug and slot geometry - coarser layers will produce connectors that are too loose or too tight. The overhangs on the connector faces need support from the bed.
 
 PETG is recommended where higher durability or temperature resistance is needed, but PLA works equally well in a typical indoor layout (results on floor heating may vary, depending on your temperature comfort zone).
 
@@ -172,11 +172,11 @@ PETG is recommended where higher durability or temperature resistance is needed,
 
 ## Physical Calibration
 
-The nominal Roco track dimensions (radius, angle) published in catalogues do not perfectly match the manufactured parts. The Roco R1 turnout (2417/2418), for example, has a measured lateral branch offset of ≈ 16.2 mm versus the nominal 16.82 mm — a difference of less than a millimetre, but enough to cause the track to bow and open the rail contacts when inserted into a tightly printed adapter bed.
+The nominal Roco track dimensions (radius, angle) published in catalogues do not perfectly match the manufactured parts. The Roco R1 turnout (2417/2418), for example, has a measured lateral branch offset of ≈ 16.2 mm versus the nominal 16.82 mm - a difference of less than a millimetre, but enough to cause the track to bow and open the rail contacts when inserted into a tightly printed adapter bed.
 
 The adapter compensates for this silently: all parameters and JSON presets use the official nominal values as usual, and the correction (R1: 24°/194.6 mm → 23.2°/200 mm) is applied internally in `Roco_Kato_Adapter.scad`.
 
-Calibration data is currently only available for **Roco R1**. If you have accurate measurements for other radii (R2–R6) or other manufacturers' track, I would be very pleased if you shared them — for example via a pull request or an issue on the repository. The more data that can be collected, the better the fit will be for everyone.
+Calibration data is currently only available for **Roco R1**. If you have accurate measurements for other radii (R2–R6) or other manufacturers' track, I would be very pleased if you shared them - for example via a pull request or an issue on the repository. The more data that can be collected, the better the fit will be for everyone.
 
 ---
 ## Tinkerers' little helpers
@@ -188,5 +188,5 @@ Optimization, documentation and framework were assisted by AI, namely Github Cop
 This work is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).  
 You are free to share and adapt it for any purpose, provided you give appropriate credit.
 
-Contributions and improvements are welcome — please open a pull request or send them to the author.
+Contributions and improvements are welcome - please open a pull request or send them to the author.
 
