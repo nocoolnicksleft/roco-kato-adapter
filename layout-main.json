@@ -1,0 +1,194 @@
+{
+  "layout": {
+    "name": "Roco/Kato Mixed Layout",
+    "scale": "H0",
+    "description": "Double oval with elevated outer top section (+80mm), S-crossover in center permitting circuit switching, and two sidings on the left.",
+    "notes": [
+      "Part numbers in the diagram are the last two digits of Roco 24XX series (e.g. '18' = Roco 2418).",
+      "Mixed Roco track with Kato Unitrack via adapter pieces.",
+      "+80 means 80mm above base level. Grade runs between the ±0 reference markers and the +80 corner markers.",
+      "Red arrowhead markers in the diagram indicate the steepest grade points.",
+      "All radii in mm. R1 = 194.6mm, R2 = 228.2mm.",
+      "Topology of the S-crossover: TW2 and TW3 are opposing turnouts on parallel tracks.",
+      "  When both are set STRAIGHT: trains run on their own circuits (outer/inner).",
+      "  When both are set CURVED:   a train can cross from one circuit to the other.",
+      "UNCERTAIN: exact part count on bottom straight and ramps — verify against actual track.",
+      "UNCERTAIN: whether TW5 is 2417 or 2418 — depends on which siding is the diverging one."
+    ],
+
+    "part_reference": {
+      "2401": { "type": "straight",  "length_mm": 104.2 },
+      "2402": { "type": "curve",     "radius_mm": 194.6, "angle_deg": 30,  "label": "R1 30°" },
+      "2403": { "type": "curve",     "radius_mm": 228.2, "angle_deg": 30,  "label": "R2 30°" },
+      "2412": { "type": "decoupler", "length_mm": 76.2 },
+      "2417": { "type": "turnout",   "hand": "left",  "straight_mm": 104.2, "radius_mm": 194.6, "branch_deg": 24 },
+      "2418": { "type": "turnout",   "hand": "right", "straight_mm": 104.2, "radius_mm": 194.6, "branch_deg": 24 },
+      "2419": { "type": "curve",     "radius_mm": 194.6, "angle_deg": 6,   "label": "R1 6°" },
+      "2420": { "type": "curve",     "radius_mm": 194.6, "angle_deg": 24,  "label": "R1 24°" },
+      "2421": { "type": "straight",  "length_mm": 50.0 },
+      "2423": { "type": "straight",  "length_mm": 54.2 },
+      "2424": { "type": "curve",     "radius_mm": 228.2, "angle_deg": 6,   "label": "R2 6°" },
+      "2426": { "type": "straight",  "length_mm": 17.2 }
+    },
+
+    "segments": [
+
+      { "id": "TW1",
+        "type": "turnout", "part": "2418",
+        "label": "Top-left junction — outer elevated straight to inner diagonal",
+        "elevation_mm": 80,
+        "controls": { "panel_label": "W1" }
+      },
+      { "id": "TW2",
+        "type": "turnout", "part": "2417",
+        "label": "Center crossover — left turnout (upper track side)",
+        "controls": { "panel_label": "W2" }
+      },
+      { "id": "TW3",
+        "type": "turnout", "part": "2418",
+        "label": "Center crossover — right turnout (lower/inner track side)",
+        "controls": { "panel_label": "W3" }
+      },
+      { "id": "TW4",
+        "type": "turnout", "part": "2418",
+        "label": "Bottom-right — inner/outer bottom track junction",
+        "controls": { "panel_label": "W4" }
+      },
+      { "id": "TW5",
+        "type": "turnout", "part": "2417",
+        "label": "Left — main inner track to siding ladder",
+        "controls": { "panel_label": "W5" },
+        "note": "UNCERTAIN: may be 2418 depending on geometry"
+      },
+
+      { "id": "DC1",
+        "type": "decoupler", "part": "2412",
+        "label": "Center uncoupler — between TW2 and TW3 on crossover straight",
+        "controls": { "panel_label": "K1" }
+      },
+      { "id": "DC2",
+        "type": "decoupler", "part": "2412",
+        "label": "Bottom uncoupler — on inner bottom track near TW4",
+        "controls": { "panel_label": "K2" }
+      },
+
+      { "id": "B_OUTER_TOP",
+        "type": "block",
+        "label": "Outer top straight (elevated)",
+        "elevation_mm": 80,
+        "parts": ["2419", "2402", "2402", "2423", "2426"]
+      },
+      { "id": "B_RAMP_R",
+        "type": "block",
+        "label": "Right descending ramp — outer track",
+        "elevation_start_mm": 80, "elevation_end_mm": 0,
+        "parts": ["2403", "2403"],
+        "note": "Grade reference: ±0 marker is at the bottom of this ramp"
+      },
+      { "id": "B_CORNER_R_OUTER",
+        "type": "block",
+        "label": "Right end curves — outer oval",
+        "parts": ["2403", "2402"]
+      },
+      { "id": "B_OUTER_BOT",
+        "type": "block",
+        "label": "Outer bottom straight",
+        "parts": ["2401", "2401", "2423", "2426"]
+      },
+      { "id": "B_CORNER_L_OUTER",
+        "type": "block",
+        "label": "Left end curves — outer oval",
+        "parts": ["2419", "2402", "2402"]
+      },
+      { "id": "B_RAMP_L",
+        "type": "block",
+        "label": "Left ascending ramp — outer track",
+        "elevation_start_mm": 0, "elevation_end_mm": 80,
+        "parts": ["2402", "2402"],
+        "note": "Grade reference: ±0 marker is at the bottom of this ramp"
+      },
+
+      { "id": "B_DIAG",
+        "type": "block",
+        "label": "Diagonal — from TW1 curved exit down to center crossover (TW2 entrance)",
+        "parts": ["2402", "2419"],
+        "note": "This is the key link between the elevated outer oval and the inner circuit"
+      },
+
+      { "id": "B_INNER_TOP",
+        "type": "block",
+        "label": "Inner top track (runs below/beside elevated outer top)",
+        "parts": ["2402", "2402", "2426", "2423"]
+      },
+      { "id": "B_CORNER_R_INNER",
+        "type": "block",
+        "label": "Right end curves — inner oval",
+        "parts": ["2402", "2402"]
+      },
+      { "id": "B_INNER_BOT",
+        "type": "block",
+        "label": "Inner bottom straight",
+        "parts": ["2401", "2423", "2426"]
+      },
+      { "id": "B_CORNER_L_INNER",
+        "type": "block",
+        "label": "Left end curves — inner oval",
+        "parts": ["2424", "2419", "2402"]
+      },
+
+      { "id": "S1",
+        "type": "block",
+        "label": "Left siding 1 (upper, longer)",
+        "parts": ["2423", "2423"],
+        "end": "buffer_stop"
+      },
+      { "id": "S2",
+        "type": "block",
+        "label": "Left siding 2 (lower, shorter)",
+        "parts": ["2421"],
+        "end": "buffer_stop"
+      }
+    ],
+
+    "connections": [
+
+      { "_group": "Outer oval (clockwise)" },
+      { "from": "B_RAMP_L.exit",          "to": "TW1.entrance" },
+      { "from": "TW1.exit_straight",       "to": "B_OUTER_TOP.entrance" },
+      { "from": "B_OUTER_TOP.exit",        "to": "B_RAMP_R.entrance" },
+      { "from": "B_RAMP_R.exit",           "to": "B_CORNER_R_OUTER.entrance" },
+      { "from": "B_CORNER_R_OUTER.exit",   "to": "TW4.entrance" },
+      { "from": "TW4.exit_straight",       "to": "B_OUTER_BOT.entrance" },
+      { "from": "B_OUTER_BOT.exit",        "to": "TW5.entrance" },
+      { "from": "TW5.exit_straight",       "to": "B_CORNER_L_OUTER.entrance" },
+      { "from": "B_CORNER_L_OUTER.exit",   "to": "B_RAMP_L.entrance" },
+
+      { "_group": "Diagonal — outer elevated to inner circuit" },
+      { "from": "TW1.exit_curved",         "to": "B_DIAG.entrance" },
+      { "from": "B_DIAG.exit",             "to": "TW2.entrance" },
+
+      { "_group": "Center S-crossover" },
+      { "from": "TW2.exit_straight",       "to": "DC1.entrance" },
+      { "from": "DC1.exit",                "to": "TW3.entrance" },
+      { "from": "TW2.exit_curved",         "to": "TW3.exit_curved",
+        "note": "Cross-link: active when both TW2+TW3 set to curved — allows circuit switching" },
+
+      { "_group": "Inner circuit (counter-clockwise from crossover)" },
+      { "from": "TW3.exit_straight",       "to": "B_INNER_BOT.entrance" },
+      { "from": "B_INNER_BOT.exit",        "to": "DC2.entrance" },
+      { "from": "DC2.exit",                "to": "TW4.exit_curved",
+        "note": "Enters TW4 from the curved side — trains going left merge into outer bottom" },
+      { "from": "TW4.exit_curved",         "to": "B_CORNER_R_INNER.entrance" },
+      { "from": "B_CORNER_R_INNER.exit",   "to": "B_INNER_TOP.entrance" },
+      { "from": "B_INNER_TOP.exit",        "to": "TW2.entrance",
+        "note": "Inner top loop feeds back into the crossover" },
+
+      { "_group": "Left sidings" },
+      { "from": "TW5.exit_curved",         "to": "B_CORNER_L_INNER.entrance" },
+      { "from": "B_CORNER_L_INNER.exit",   "to": "TW6.entrance",
+        "note": "TW6 = siding ladder turnout — splits S1 and S2. Not yet in segments list." },
+      { "from": "TW6.exit_straight",       "to": "S1.entrance" },
+      { "from": "TW6.exit_curved",         "to": "S2.entrance" }
+    ]
+  }
+}

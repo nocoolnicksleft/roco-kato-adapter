@@ -1,3 +1,4 @@
+// title: Double Turnout Junction (R → L)
 /*
     layout.scad - Multi-piece layout plate.
 
@@ -23,12 +24,12 @@
 */
 
 layout_mode = true;      // suppresses the single-piece preview render
-include <Roco_Kato_Adapter.scad>
+include <../../Roco_Kato_Adapter.scad>
 
 // ── Piece 1: Roco Turnout R 2418 (right/mirrored) ────────────────────────────
 
 roco_adapter(
-    straight_length             = 104.2,
+    straight_length             = 104.2 +43,
     branch_angle                = 24,
     radius                      = 194.6,
     connecting_straight_length  = 0,

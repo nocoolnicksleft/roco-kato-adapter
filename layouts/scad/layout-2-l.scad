@@ -1,3 +1,4 @@
+// title: Layout 2L — Turnout R + Curve R1 + Straight
 /*
     layout.scad - Multi-piece layout plate.
 
@@ -23,13 +24,26 @@
 */
 
 layout_mode = true;      // suppresses the single-piece preview render
-include <Roco_Kato_Adapter.scad>
+include <../../Roco_Kato_Adapter.scad>
+
+// ── Piece 0: Roco Curve ────────────────────────────
+  roco_adapter(
+    connecting_straight_length = 0,
+    drive_length = 0,
+    enable_entrance_unijoiner = true,
+    enable_exit_unijoiner_straight = true,
+    enable_exit_unijoiner_curved    = false, 
+    straight_length = 0,
+    radius = 194.6,
+    branch_angle = 6,
+    mirrored = false
+  );
 
 // ── Piece 1: Roco Turnout R 2418 (right/mirrored) ────────────────────────────
-
+after_curved_exit(r = 194.6, w = 6, csl = 0, cca = 0, m = false)
 roco_adapter(
     straight_length             = 104.2,
-    branch_angle                = 30,
+    branch_angle                = 24,
     radius                      = 194.6,
     connecting_straight_length  = 0,
     connected_curve_angle       = 0,
@@ -39,16 +53,17 @@ roco_adapter(
     drive_inset                 = 4,
     drive_cableslot_diameter    = 4,
     drive_cableslot_offset      = 80,
-    enable_entrance_unijoiner       = true,
+    enable_entrance_unijoiner       = false,
     enable_exit_unijoiner_straight  = false,
-    enable_exit_unijoiner_curved    = true,  // joins piece 2
-    mirrored                    = true
+    enable_exit_unijoiner_curved    = false,  // joins piece 2
+    mirrored                    = false
 );
 
 
 
 
 // ── Piece 2: Roco Curve 2420 R1 24° - curved exit of piece 1 ──────────────
+after_curved_exit(r = 194.6, w = 6, csl = 0, cca = 0, m = false)
 after_straight_exit(sl = 104.2)
     roco_adapter(
             connecting_straight_length = 0,
@@ -58,6 +73,19 @@ after_straight_exit(sl = 104.2)
             straight_length = 0,
             radius = 194.6,
             branch_angle = 24,
-            mirrored = true
+            mirrored = false
     );
 
+// Piece 3: Shortened Roco straight 96.8mm - curved exit of piece 1 
+after_curved_exit(r = 194.6, w = 6, csl = 0, cca = 0, m = false)
+after_curved_exit(r = 194.6, w = 24, csl = 0, cca = 0, m = false)
+    roco_adapter(
+        straight_length             = 96.8,
+        branch_angle                = 0,
+        connecting_straight_length  = 0,
+        drive_length                = 0,
+        enable_entrance_unijoiner       = false,  // joins piece 2
+        enable_exit_unijoiner_straight  = true,  
+        enable_exit_unijoiner_curved    = false,
+        mirrored                    = false
+    );

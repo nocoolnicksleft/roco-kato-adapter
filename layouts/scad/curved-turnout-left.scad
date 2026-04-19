@@ -1,3 +1,4 @@
+// title: Curved Turnout Left
 /*
     layout.scad - Multi-piece layout plate.
 
@@ -23,41 +24,38 @@
 */
 
 layout_mode = true;      // suppresses the single-piece preview render
-include <Roco_Kato_Adapter.scad>
+include <../../Roco_Kato_Adapter.scad>
 
 // ── Piece 1: Roco Turnout R 2418 (right/mirrored) ────────────────────────────
 
-roco_adapter(
-    straight_length             = 104.2,
-    branch_angle                = 30,
-    radius                      = 194.6,
-    connecting_straight_length  = 0,
-    connected_curve_angle       = 0,
-    drive_length                = 90,
-    drive_width                 = 10,
-    drive_offset                = 7,
-    drive_inset                 = 4,
-    drive_cableslot_diameter    = 4,
-    drive_cableslot_offset      = 80,
-    enable_entrance_unijoiner       = true,
-    enable_exit_unijoiner_straight  = false,
-    enable_exit_unijoiner_curved    = true,  // joins piece 2
-    mirrored                    = false
-);
 
 
 
 
 // ── Piece 2: Roco Curve 2420 R1 24° - curved exit of piece 1 ──────────────
-after_straight_exit(sl = 104.2)
+
     roco_adapter(
             connecting_straight_length = 0,
             drive_length = 0,
             enable_entrance_unijoiner = false,
             enable_exit_unijoiner_straight = true,
             straight_length = 0,
-            radius = 194.6,
-            branch_angle = 24,
+            radius = 356.5,
+            branch_angle = 45,
             mirrored = false
     );
 
+        roco_adapter(
+            connecting_straight_length = 0,
+            drive_length = 0,
+            drive_offset = 10,
+            drive_width = 10,
+            enable_entrance_unijoiner = true,
+            straight_length = 0,
+            radius = 420,
+            branch_angle = 45,
+            mirrored = false
+        );
+
+
+  
