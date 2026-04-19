@@ -1,10 +1,10 @@
-# Roco N (and others) to Kato Track Adapters
+# Roco N (and others) to Kato Unitrack Adapters
 
 Parametric OpenSCAD adapter beds for N-scale [Roco](https://www.roco.cc/) track to connect to the [Kato Unitrack](https://www.katomodels.com/unitrack) system.
 
 The adapters are printed and glued to the underside of Roco track pieces, adding a Kato-compatible sleeper bed with Unijoiner connectors so the Roco pieces plug straight into any Kato Unitrack layout.
 
-25 pre-built configurations are included, covering all common Roco straights, curves and turnouts. Custom pieces and multi-piece layout plates can be generated with a few lines of OpenSCAD.
+25 pre-built configurations are included, covering all common Roco straights, curves and turnouts, plus sleeper belt fillers. Custom pieces and multi-piece layout plates can be generated with a few lines of OpenSCAD.
 
 In general, they should work with any bedless Code 80 system. (Roco N, Fleischmann, Minitrix, Peco, Atlas) From personal experience, I recommend not mixing Minitrix and Roco track on the same base, as the slight difference in height can cause trouble.
 
@@ -51,6 +51,17 @@ Run `./export_stl.sh` to generate all STL files and preview images from the para
 | | | <img src="img/Roco_Curve_2407_R4_15.png" width="180"><br>**2407 R4 15°** |
 | | | <img src="img/Roco_Curve_2408_R5_15.png" width="180"><br>**2408 R5 15°** |
 | | | <img src="img/Roco_Curve_2405_R6_15.png" width="180"><br>**2405 R6 15°** |
+
+### Sleeper Belts
+
+Standalone strips of Roco-style sleepers for sections of track that need a base but no Kato adapter geometry — for example plain track glued directly to a baseboard. Each belt has sleepers, two longitudinal rail blocks, and rail clamps. End types are configurable per end: **Closed** (full sleepers to the edge), **Open** (rail blocks extend one pitch beyond the last sleeper for butting against an adjacent piece), or **Unijoiner** (right-side rail and sleeper halves cut back to clear Kato Unijoiner connectors, with a centre spine for rigidity).
+
+| Model | Preview |
+|---|:---:|
+| **Sleeper Belt Straight — Closed** — 8 sleepers, both ends closed | <img src="img/Sleeper_Belt_Straight_Closed.png" width="220"> |
+| **Sleeper Belt Straight — Unijoiner** — 8 sleepers, Unijoiner cutout at both ends | <img src="img/Sleeper_Belt_Straight_Unijoiner.png" width="220"> |
+
+Open `Roco_Sleeper_Belt.scad` in OpenSCAD to customise belt length, diameter (straight or any Roco/Kato radius), and per-end type. Parameter sets are defined in `Roco_Sleeper_Belt.json` and are included in the batch export.
 
 ---
 
@@ -101,6 +112,8 @@ after_curved_exit(r=194.6, w=24, csl=0, cca=0, m=false)
 ```
 
 **Unijoiner rule for joined pieces:** at every internal joint (where two pieces meet and are printed as one), disable the unijoiner on **both** sides - the exit unijoiner of the upstream piece and the entrance unijoiner of the downstream piece. Only the outer ends that connect to actual Kato Unitrack need unijoiners.
+
+**Always use the connecting_straight_length and connected_curve_angle** properties for pieces directly attached to a turnout. Directly joining other pieces may result in rendering artifacts.
 
 ---
 

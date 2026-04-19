@@ -120,15 +120,7 @@ module drive_cut(drive_length, drive_width) {
     cube([drive_length, drive_width + 2, bed_height]);
 }
 
-module unijoiner_receptable_rev() {
-    slotwidth = 3;
-    translate([0, bed_width_top/4 - unijoiner_width/2 - 0.4, 0])    
-    hull() {
-        cube([unijoiner_depth + 1, unijoiner_width + 0.2, 2.5]);
-        translate([0,unijoiner_width / 2 - slotwidth / 2 ,0]) 
-            cube([unijoiner_depth + 1, slotwidth, bed_height - recess_depth]); 
-    }
-}
+
 
 /*
     --- Physical calibration corrections ---
@@ -359,17 +351,45 @@ module roco_adapter(
             }
         }
 
+        // Sleeper bed S-curve, cutout
+        if (branch_angle != 0 && connected_curve_angle != 0) {
+            if (mirrored) {
+                translate([sin(_w)*_r, -(_r - cos(_w)*_r), 0])
+                    rotate([0, 0, -_w])
+                        translate([0, _ccrad, 0])
+                            rotate([0, 0, -90])
+                                curved_recess(_ccrad, _ccw);
+            } else {
+                translate([sin(_w)*_r, _r - cos(_w)*_r, 0])
+                    rotate([0, 0, _w])
+                        translate([0, -_ccrad, 0])
+                            rotate([0, 0, 90])
+                                curved_recess(_ccrad, -_ccw);
+            }
+        }
+
         // Drive platform, cutout
         if (drive_length > 0) {
             if (mirrored) {
-            translate([drive_offset, bed_width_top / 2 - 1 , bed_height - recess_depth]) 
-                    drive_cut(drive_length, drive_width);
+                translate([drive_offset, bed_width_top / 2 - 1 , bed_height - recess_depth]) 
+                        drive_cut(drive_length, drive_width);
+
+                // Mechanics cutout
+                translate([drive_offset + 12,- drive_width / 2 - 3,-0.01])    
+                        cube([9,bed_width_top + drive_width/ 2 , bed_height +1 ]); 
+
             } else {
-            translate([drive_offset, - bed_width_top / 2 - drive_width - 0.2, bed_height - recess_depth]) 
-                    drive_cut(drive_length, drive_width);
+                translate([drive_offset, - bed_width_top / 2 - drive_width - 0.2, bed_height - recess_depth]) 
+                        drive_cut(drive_length, drive_width);
+
+                // Mechanics cutout
+                translate([drive_offset + 12,-bed_width_top / 2 - drive_width / 2 - 1.0,-0.01])    
+                        cube([9,bed_width_top + drive_width/ 2 , bed_height +1 ]); 
             }
         }
-                
+
+
+
         
         
         if (branch_angle != 0) {
