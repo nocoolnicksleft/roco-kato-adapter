@@ -1,0 +1,17 @@
+{
+    "parameterSets": {
+        "Sleeper Belt Straight Closed": {
+            "n_sleepers": "8",
+            "diameter": "0",
+            "end_start": "Closed",
+            "end_finish": "Closed"
+        },
+        "Sleeper Belt Straight Unijoiner": {
+            "n_sleepers": "8",
+            "diameter": "0",
+            "end_start": "Unijoiner",
+            "end_finish": "Unijoiner"
+        }
+    },
+    "fileFormatVersion": "1"
+}
